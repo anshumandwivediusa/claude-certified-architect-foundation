@@ -82,10 +82,6 @@ A basic understanding of REST APIs, JSON, Python or JavaScript, and modern softw
 
 ---
 
-
-
----
-
 ## Disclaimer
 
 This is an **independent, community-maintained** study resource created to support learners preparing for the **Claude Certified Architect – Foundations** certification. It is **not an official Anthropic publication** and is **not affiliated with, endorsed by, or sponsored by Anthropic**.
