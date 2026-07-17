@@ -12,6 +12,9 @@ The **Claude Certified Architect – Foundations** certification is intended for
 
 The exam evaluates a candidate's ability to design reliable, scalable, and secure AI systems rather than simply recalling API syntax. Questions are primarily scenario-based and focus on applying architectural principles to real-world problems.
 
+Website: https://dnacenta.github.io/claude-certified-architect/
+PDF (English): https://dnacenta.github.io/claude-certified-architect/guide_en.pdf
+
 ---
 
 ## What You'll Learn
