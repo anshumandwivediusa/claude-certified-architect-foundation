@@ -13,15 +13,15 @@ The **Claude Certified Architect – Foundations** certification is intended for
 The exam evaluates a candidate's ability to design reliable, scalable, and secure AI systems rather than simply recalling API syntax. Questions are primarily scenario-based and focus on applying architectural principles to real-world problems.
 
 ### Course Overview
-Course Name: Claude Certified Architect — Foundations (CCA‑F)
+**Course Name:** Claude Certified Architect — Foundations (CCA‑F)
 
-Purpose: Prepares candidates for the Foundations certification exam.
+**Purpose:** Prepares candidates for the Foundations certification exam.
 
-Format: Online, self‑paced modules with animated diagrams, hands‑on build exercises, and scenario‑based quizzes.
+**Format:** Online, self‑paced modules with animated diagrams, hands‑on build exercises, and scenario‑based quizzes.
 
-Audience: Solution architects, AI engineers, technical leads working with Claude in production.
+**Audience:** Solution architects, AI engineers, technical leads working with Claude in production.
 
-Prerequisites: Recommended completion of Claude 101, Claude Code in Action, AI Fluency, Building with the Claude API, and Introduction to MCP.
+**Prerequisites:** Recommended completion of Claude 101, Claude Code in Action, AI Fluency, Building with the Claude API, and Introduction to MCP.
 
 ---
 
