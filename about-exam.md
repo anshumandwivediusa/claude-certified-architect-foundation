@@ -75,6 +75,21 @@ A basic understanding of REST APIs, JSON, Python or JavaScript, and modern softw
 
 ---
 
+## Exam Overview
+Format: 60 multiple-choice, scenario-based questions
+Passing score: 720/1000
+Scenarios: 4 of 6 randomly selected per exam
+Target audience: Solution architects with 6+ months experience building with Claude APIs, Agent SDK, Claude Code, and MCP
+Domains
+Domain	Weight	Guide
+Agentic Architecture & Orchestration	27%	Domain 1
+Tool Design & MCP Integration	18%	Domain 2
+Claude Code Configuration & Workflows	20%	Domain 3
+Prompt Engineering & Structured Output	20%	Domain 4
+Context Management & Reliability	15%	Domain 5
+
+---
+
 ## Disclaimer
 
 This is an **independent, community-maintained** study resource created to support learners preparing for the **Claude Certified Architect – Foundations** certification. It is **not an official Anthropic publication** and is **not affiliated with, endorsed by, or sponsored by Anthropic**.
