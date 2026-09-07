@@ -5,8 +5,9 @@
 An **AI Agent** is an AI system that can **understand a goal, make decisions, use tools, take actions, observe the results, and continue working until the goal is completed** with minimal human intervention.
 
 Unlike a traditional chatbot that simply answers a question, an AI agent is **goal-oriented**. It can plan, execute tasks, and adapt based on what happens during execution.
-
-<img width="500" height="350" alt="image" src="https://github.com/user-attachments/assets/ee4dbf3d-5e3b-4dad-b5a1-98b55746fc55" />
+<p align="center">
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/ee4dbf3d-5e3b-4dad-b5a1-98b55746fc55" />
+</p>
 
 ## Agentic Architecture and Execution Models
 
