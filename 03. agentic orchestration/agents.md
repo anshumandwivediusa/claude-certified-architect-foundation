@@ -23,7 +23,7 @@ Conceptual Role in AI:
   - Enables reasoning over structured data (graphs, ontologies).
 
 
-## 02. Key Topics
+## 02. Learning Objectives
 
 Based on the exam guide and prep sources, here's the breakdown of **Domain 1: Agentic Architecture & Orchestration (27%)** — the highest-weighted domain on the exam:
 
