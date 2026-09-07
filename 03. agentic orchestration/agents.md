@@ -1,5 +1,13 @@
 # Domain 1: Agentic Architecture & Orchestration (27%)
 
+## What is an AI Agent?
+
+An **AI Agent** is an AI system that can **understand a goal, make decisions, use tools, take actions, observe the results, and continue working until the goal is completed** with minimal human intervention.
+
+Unlike a traditional chatbot that simply answers a question, an AI agent is **goal-oriented**. It can plan, execute tasks, and adapt based on what happens during execution.
+
+<img width="500" height="350" alt="image" src="https://github.com/user-attachments/assets/ee4dbf3d-5e3b-4dad-b5a1-98b55746fc55" />
+
 ## Agentic Architecture and Execution Models
 
 **Agentic architecture** is the foundational design pattern behind modern AI systems that can work **autonomously (no human or logic dependent) toward a goal**. Instead of simply answering questions, these systems can **goal**, **plan**, **reason**, **take actions**, **evaluate outcomes**, and **adapt their approach** until the task is successfully completed.
