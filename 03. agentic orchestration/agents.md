@@ -1,6 +1,6 @@
 # Domain 1: Agentic Architecture & Orchestration (27%)
 
-## What is an AI Agent?
+## 01. What is an AI Agent?
 
 An **AI Agent** is an AI system that can **understand a goal, make decisions, use tools, take actions, observe the results, and continue working until the goal is completed** with minimal human intervention.
 
@@ -21,6 +21,50 @@ Conceptual Role in AI:
   - Acts as external memory for LLMs.
   - Provides ground truth to reduce hallucinations.
   - Enables reasoning over structured data (graphs, ontologies).
+
+
+## 02. Key Topics
+
+Based on the exam guide and prep sources, here's the breakdown of **Domain 1: Agentic Architecture & Orchestration (27%)** — the highest-weighted domain on the exam:
+
+**1. Foundational agent concepts**
+- Distinguishing agents from workflows and conversational systems
+- The four pillars of agentic behavior: perception, selection (reasoning), execution, iteration
+- How tool use closes the gap between an LLM and the "action environment" — i.e., what turns a model into something that can actually *act* on the world, not just respond to it
+
+**2. The agentic loop lifecycle**
+- Sending requests, inspecting `stop_reason` (`tool_use` vs. `end_turn`) to decide the next step
+- Executing tools and returning results back into the loop
+- Loop control: defining termination conditions, turn budgets, and escalation paths — covering task-complete, error-threshold, budget-exhausted, and explicit stop signals (this is squarely about preventing infinite or runaway loops)
+
+**3. When to use agentic architecture at all**
+- Agentic vs. simpler patterns — recognizing when a fixed workflow beats a model-driven loop
+- Comparing pre-scripted workflows against model-driven agentic sequences, with emphasis on tool description quality and safety tradeoffs
+
+**4. Task decomposition and execution strategy**
+- How a coordinator breaks a complex request into distinct concerns, identifies dependencies, and decides what runs in parallel vs. sequentially
+- Recognizing the anti-pattern: skipping decomposition and handing an underspecified task straight to execution
+
+**5. Orchestrator–subagent design**
+- Coordinator/subagent roles and responsibilities
+- Configuring subagent invocation, spawning strategy, and context sharing
+- Multi-agent topology choice — hub-and-spoke vs. pipeline vs. peer-to-peer — and what each implies for failure containment and coordination overhead
+
+**6. Session and state management**
+- Session state, resumption, and forking workflows
+- Managing context handoff between steps and between agents
+
+**7. Enforcement and hooks**
+- Applying Agent SDK hooks to intercept and enforce business rules programmatically (e.g., forcing a specific tool sequence before a sensitive action executes) — a recurring exam theme is *deterministic enforcement vs. relying on prompt-based instruction*
+
+## What the exam actually does with this domain
+
+Sample question framing tends to look like: *"Design an agentic loop with tool integration, structured error handling, and escalation logic"* or *"Choose the correct enforcement mechanism when a specific tool sequence is required for critical business logic."* The recurring theme — confirmed across independent prep sources — is that Domain 1 rewards recognizing when *programmatic* guarantees are needed versus when prompt-level guidance is sufficient, and this domain frequently overlaps with Domain 2 (Tool Design & MCP) and Domain 5 (Context Management) in the same scenario.
+
+---
+
+One important caveat: this synthesis comes from third-party exam-prep sources and course catalogs (Udemy listings, independent study guides) rather than Anthropic's own Exam Guide PDF directly. I did find a reference to the official PDF hosted on an S3 bucket tied to a course platform, but I haven't fetched and read it directly. If you want maximum fidelity for actual exam prep, I'd recommend fetching that official guide directly — I can do that now if you'd like, since it would let me quote the task statements verbatim rather than reconstructing them from secondary sources.
+
 
 ## Agentic Architecture and Execution Models
 
