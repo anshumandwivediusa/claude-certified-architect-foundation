@@ -99,9 +99,8 @@ For the Claude Code Architect Foundation exam, candidates should understand:
 
 A solid understanding of agentic architecture and execution models provides the conceptual foundation for every other topic in the certification, including multi-agent systems, tool orchestration, context management, reliability, and governance.
 
-### Introduction to Agentic AI
-
-#### Evolution of AI Systems
+```
+Evolution of AI Systems
 - **Traditional Software** → deterministic, rule-based, predictable, no learning.
 - **Rule-Based AI** → expert systems, thousands of rules, hard to maintain, no learning.
 - **Machine Learning** → learns from data, better generalization, narrow tasks.
@@ -111,6 +110,7 @@ A solid understanding of agentic architecture and execution models provides the 
 - **Tool-Using AI** → LLMs call APIs, databases, calculators; introduces planning.
 - **Agentic AI** → continuous loop: reason → plan → execute → observe → reflect.
 - **Multi-Agent Systems** → specialized agents collaborate; parallelism, scalability.
+```
 
 #### Reactive vs Autonomous Systems
 - **Reactive** → event-driven, deterministic, no planning.  
