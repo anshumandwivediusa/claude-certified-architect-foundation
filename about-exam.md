@@ -116,7 +116,25 @@ This study guide is designed for:
 * Technical Architects
 * Developers preparing for the Claude Certified Architect – Foundations certification
 
-A basic understanding of REST APIs, JSON, Python or JavaScript, and modern software architecture is recommended.
+### Recommended Prerequisites
+
+**Programming fundamentals**
+Solid understanding of at least one programming language (Python or JavaScript preferred) to work with APIs, SDKs, and automation scripts.
+
+**AI/ML Basics**  
+Familiarity with concepts like large language models (LLMs), embeddings, and retrieval-augmented generation (RAG).
+
+**Cloud and Enterprise Systems**  
+Basic knowledge of cloud platforms (AWS, Azure, GCP) and enterprise architecture principles.
+
+**APIs and Integration**  
+Experience with REST APIs, JSON schemas, and service orchestration.
+
+**Security Fundamentals**  
+Awareness of authentication, authorization, and governance practices in enterprise systems.
+
+**System Design Thinking**  
+Ability to reason about trade-offs, reliability, and scalability in distributed systems.
 
 ---
 
