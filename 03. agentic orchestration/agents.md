@@ -101,15 +101,15 @@ A solid understanding of agentic architecture and execution models provides the 
 
 ```
 Evolution of AI Systems
-- **Traditional Software** → deterministic, rule-based, predictable, no learning.
-- **Rule-Based AI** → expert systems, thousands of rules, hard to maintain, no learning.
-- **Machine Learning** → learns from data, better generalization, narrow tasks.
-- **Deep Learning** → CNNs, RNNs, Transformers; breakthroughs in vision, speech, language.
-- **Large Language Models** → one model, many tasks via prompting; limited to parameters.
-- **Retrieval-Augmented Generation** → adds external knowledge, reduces hallucinations.
-- **Tool-Using AI** → LLMs call APIs, databases, calculators; introduces planning.
-- **Agentic AI** → continuous loop: reason → plan → execute → observe → reflect.
-- **Multi-Agent Systems** → specialized agents collaborate; parallelism, scalability.
+- Traditional Software → deterministic, rule-based, predictable, no learning.
+- Rule-Based AI → expert systems, thousands of rules, hard to maintain, no learning.
+- Machine Learning → learns from data, better generalization, narrow tasks.
+- Deep Learning → CNNs, RNNs, Transformers; breakthroughs in vision, speech, language.
+- Large Language Models → one model, many tasks via prompting; limited to parameters.
+- Retrieval-Augmented Generation → adds external knowledge, reduces hallucinations.
+- Tool-Using AI → LLMs call APIs, databases, calculators; introduces planning.
+- Agentic AI → continuous loop: reason → plan → execute → observe → reflect.
+- Multi-Agent Systems → specialized agents collaborate; parallelism, scalability.
 ```
 
 #### Reactive vs Autonomous Systems
