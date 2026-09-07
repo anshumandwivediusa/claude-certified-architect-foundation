@@ -105,12 +105,12 @@ However, because the certification and platform evolve over time, readers should
 
 ---
 
-## Intended Audience
+## Intended Audience & Prerequisites 
 
 This study guide is designed for:
 
 * AI Solution Architects
-* GenAI Engineers
+* GenAI Developers/Engineers
 * Backend Developers
 * Platform Engineers
 * Technical Architects
