@@ -4,12 +4,12 @@
 
 An **AI Agent** is an AI system that can **understand a goal, make decisions, use tools, take actions, observe the results, and continue working until the goal is completed** with minimal human intervention.
 
-Unlike a traditional chatbot that simply answers a question, an AI agent is **Autonomous Goal-oriented**. It can plan, execute tasks, and adapt based on what happens during execution.
+Unlike a traditional chatbot that simply answers a question, an AI agent is **Autonomous & Goal-oriented**. It can plan, execute tasks, and adapt based on what happens during execution.
 <p align="center">
 <img width="500" height="350" alt="image" src="https://github.com/user-attachments/assets/29e5693b-433a-411b-9a9d-f1df75660aad" />
 </p>
 
-### Knowledge Bases: 
+``` Knowledge Bases: 
 From information theory, a knowledge base is essentially a structured encoding of information designed to minimize uncertainty.
 
 Modern KBs often integrate with ML models:
@@ -21,7 +21,7 @@ Conceptual Role in AI:
   - Acts as external memory for LLMs.
   - Provides ground truth to reduce hallucinations.
   - Enables reasoning over structured data (graphs, ontologies).
-
+```
 
 ## 02. Learning Objectives
 
