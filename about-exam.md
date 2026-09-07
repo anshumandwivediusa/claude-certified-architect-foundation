@@ -17,6 +17,11 @@ Rather than just collecting notes, the guide is built around deep conceptual und
 
 - **Context is a scarce resource**  
   Context isn’t just a buffer to fill; it’s a limited design resource. What the system chooses to forget is as important as what it remembers. Managing context is a discipline, not just cleanup.
+  - **Not just a buffer** → Context isn’t infinite storage. Models have a fixed context window (the number of tokens they can “see” at once).
+
+  - **Forgetting Matters** → Deciding what to drop is as important as deciding what to keep. If you keep irrelevant details, you waste space; if you drop critical ones, reasoning breaks.
+
+  - **Design Discipline** → Managing context is an architectural choice. It’s about structuring workflows so the right information is always available at the right time.
 
 - **Orchestration topology is a structural bet**  
   Choosing hub‑and‑spoke, pipeline, or peer‑to‑peer orchestration isn’t interchangeable. Each topology encodes assumptions about where failures should be contained and how much coordination overhead the system can afford.
