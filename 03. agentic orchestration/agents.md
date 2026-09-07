@@ -112,61 +112,34 @@ Evolution of AI Systems
 - Multi-Agent Systems → specialized agents collaborate; parallelism, scalability.
 ```
 
-#### Reactive vs Autonomous Systems
-- **Reactive** → event-driven, deterministic, no planning.  
-  Example: API validating payment.
-- **Autonomous** → goal-driven, plans, adapts, uses tools.  
-  Example: AI travel planner.
-- **Comparison Table**:  
-  Trigger (event vs goal), Decision-making (rules vs reasoning), Planning (none vs multi-step), Adaptation (minimal vs high).
+### Distinguishing agents from workflows and conversational systems
 
-#### Agent vs Workflow
-- **Workflow** → fixed sequence of steps (ETL, invoice processing).  
-- **Agent** → dynamic decision-making, chooses next action at runtime.  
-- **Key difference** → workflow = static path, agent = adaptive path.
+- **Conversational systems**: single-turn or multi-turn text exchange, no autonomous action, no tool-driven state change — the model reasons *about* the world but doesn't act *in* it
+- **Workflows**: pre-defined, deterministic sequences of steps (often LLM-augmented at individual steps) where the *path* is fixed in advance by the developer, even if individual outputs vary
+- **Agents**: the model itself decides the path — which tools to call, in what order, whether to continue or stop — based on intermediate results, not a pre-scripted sequence
+- The core distinguishing question: **"Who decides the next step — the developer at design time, or the model at run time?"**
+- Recognizing hybrid systems: many production systems are workflows with an agentic sub-step (or vice versa), and part of the architectural skill is identifying which parts of a system need agentic flexibility and which don't
 
-#### What Makes a System Agentic
-- Goal-directed behavior  
-- Dynamic planning  
-- Tool selection  
-- State management  
-- Reflection & self-correction  
-- Controlled autonomy  
-- Not every LLM app is agentic (single prompt ≠ agent).
+#### The four pillars of agentic behavior
 
-#### Characteristics of Agentic Systems
-- Goal Oriented
-- Autonomy  
-- Dynamic Reasoning & Planning  
-- Tool use  
-- Memory  
-- Adaptability  
-- Observability  
-- Collaboration  
-- Safety
+- **Perception** — how the agent takes in the current state: user input, tool results, environment feedback, prior context
+- **Selection (reasoning)** — the decision-making step where the model interprets perceived state against its goal and chooses an action (which tool, which argument values, or whether to respond directly)
+- **Execution** — actually carrying out the chosen action (calling a tool, running code, hitting an API)
+- **Iteration** — feeding the result of execution back into perception, closing the loop, and deciding whether the goal is met or another cycle is needed
+- Architecturally, each pillar is a place where failure can be introduced — e.g., bad perception (stale or incomplete context), flawed selection (poor reasoning due to ambiguous tool descriptions), broken execution (tool errors not surfaced properly), or runaway iteration (no clear stopping condition)
 
-#### Agent Taxonomy
-- **By intelligence** → reactive, deliberative, goal-based, utility-based, learning.  
-- **By architecture** → single-agent, multi-agent, hierarchical, peer-to-peer, swarm.  
-- **By specialization** → research, coding, data analysis, customer support, planning, orchestrator.
+## 3. How tool use closes the gap between an LLM and the "action environment"
+
+- Without tools, an LLM only produces text — it can *describe* an action but not *perform* one
+- Tool use gives the model a structured way to request a real-world side effect (an API call, a file write, a database query) and receive a real-world result back
+- This is the mechanism that turns a "text generator" into something that can genuinely operate on external systems — the model's output becomes an *intent to act*, which the surrounding system executes and reports back on
+- Key related concepts:
+  - The tool call/observation cycle — request → execution → observation → next reasoning step
+  - Why tool *description quality* matters here: the model can only act as well as it can understand what a tool does and when to use it (this connects directly into Domain 2, Tool Design & MCP)
+  - The difference between the model *proposing* an action (via a tool_use block) and the *system* actually executing it — the model itself never directly touches the environment; execution is always mediated
 
 
-### Design Principles
-1. Prefer workflows if sufficient.  
-2. Separate reasoning from execution.  
-3. Constrain tool access (least privilege).  
-4. Maintain explicit state.  
-5. Design for observability.  
-6. Fail safely (retries, approvals, guardrails).  
-7. Build modular agents.  
-8. Optimize iteratively (latency, cost, accuracy).
 
-## Balancing Factors
-Different execution models balance:
- - Autonomy → how much the agent decides alone.
- - Reliability → safeguards, retries, human approvals.
- - Cost → compute, API calls, tool usage.
- - Oversight → when humans step in to approve or redirect.
 
 
 Claude (model)
