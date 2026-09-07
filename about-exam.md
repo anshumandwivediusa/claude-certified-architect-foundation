@@ -1,10 +1,26 @@
 # Claude Certified Architect – Foundations: Community Study Guide
 
-This repository is a comprehensive, community-driven study guide designed to help developers, AI engineers, and solution architects prepare for the **Claude Certified Architect – Foundations** certification. It consolidates the core concepts, architectural patterns, and practical skills required to design, build, and operate production-grade AI applications using the Claude ecosystem.
+This repository is a community-built study guide for anyone preparing for the **Claude Certified Architect – Foundations (CCA-F)** certification. It brings together the core knowledge, design patterns, and hands-on skills needed to build and operate production-grade AI applications across the Claude ecosystem — spanning Claude Code, the Claude Agent SDK, the Claude API, and the Model Context Protocol (MCP).
 
-Unlike a simple collection of notes, this guide emphasizes **conceptual understanding**, **architecture-first thinking**, and **real-world implementation patterns**. Each topic is explained with practical examples, diagrams, design considerations, and best practices to help learners understand not only *what* to do, but also *why* certain architectural decisions are preferred.
+Rather than just collecting notes, the guide is built around deep conceptual understanding, architecture-first thinking, and patterns drawn from real-world implementation. Each section pairs explanations with examples, diagrams, and best practices — so you come away not just knowing how to design with Claude, but why certain architectural choices hold up in practice and others don't.
 
----
+## Core Concepts for Agentic Design
+
+- **Autonomy is a dial, not a switch**  
+  Autonomy isn’t binary. The hardest design decisions aren’t “agent or not,” but *how much freedom* to give a system before oversight, structure, or a simpler workflow is better. Every pattern in this guide is about tuning that dial.
+
+- **Reliability is designed, not inherited**  
+  A capable model doesn’t automatically make a system production‑grade. Reliability comes from scoping context carefully, anticipating failures, and designing with the assumption that things *can* go wrong.
+
+- **Tools are interfaces for reasoning**  
+  Tools aren’t just functions — they’re communication channels with the model. A schema that’s technically valid can still be confusing. Good tool design treats the model as the caller whose comprehension matters.
+
+- **Context is a scarce resource**  
+  Context isn’t just a buffer to fill; it’s a limited design resource. What the system chooses to forget is as important as what it remembers. Managing context is a discipline, not just cleanup.
+
+- **Orchestration topology is a structural bet**  
+  Choosing hub‑and‑spoke, pipeline, or peer‑to‑peer orchestration isn’t interchangeable. Each topology encodes assumptions about where failures should be contained and how much coordination overhead the system can afford.
+
 
 ## About the Certification
 
