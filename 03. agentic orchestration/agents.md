@@ -4,7 +4,7 @@
 
 An **AI Agent** is an AI system that can **understand a goal, make decisions, use tools, take actions, observe the results, and continue working until the goal is completed** with minimal human intervention.
 
-Unlike a traditional chatbot that simply answers a question, an AI agent is **goal-oriented**. It can plan, execute tasks, and adapt based on what happens during execution.
+Unlike a traditional chatbot that simply answers a question, an AI agent is **Autonomous Goal-oriented**. It can plan, execute tasks, and adapt based on what happens during execution.
 <p align="center">
 <img width="500" height="350" alt="image" src="https://github.com/user-attachments/assets/29e5693b-433a-411b-9a9d-f1df75660aad" />
 </p>
@@ -57,16 +57,12 @@ Based on the exam guide and prep sources, here's the breakdown of **Domain 1: Ag
 **7. Enforcement and hooks**
 - Applying Agent SDK hooks to intercept and enforce business rules programmatically (e.g., forcing a specific tool sequence before a sensitive action executes) — a recurring exam theme is *deterministic enforcement vs. relying on prompt-based instruction*
 
-## What the exam actually does with this domain
+### What the exam actually does with this domain
 
 Sample question framing tends to look like: *"Design an agentic loop with tool integration, structured error handling, and escalation logic"* or *"Choose the correct enforcement mechanism when a specific tool sequence is required for critical business logic."* The recurring theme — confirmed across independent prep sources — is that Domain 1 rewards recognizing when *programmatic* guarantees are needed versus when prompt-level guidance is sufficient, and this domain frequently overlaps with Domain 2 (Tool Design & MCP) and Domain 5 (Context Management) in the same scenario.
 
----
 
-One important caveat: this synthesis comes from third-party exam-prep sources and course catalogs (Udemy listings, independent study guides) rather than Anthropic's own Exam Guide PDF directly. I did find a reference to the official PDF hosted on an S3 bucket tied to a course platform, but I haven't fetched and read it directly. If you want maximum fidelity for actual exam prep, I'd recommend fetching that official guide directly — I can do that now if you'd like, since it would let me quote the task statements verbatim rather than reconstructing them from secondary sources.
-
-
-## Agentic Architecture and Execution Models
+## 03. Foundational agent concepts
 
 **Agentic architecture** is the foundational design pattern behind modern AI systems that can work **autonomously (no human or logic dependent) toward a goal**. Instead of simply answering questions, these systems can **goal**, **plan**, **reason**, **take actions**, **evaluate outcomes**, and **adapt their approach** until the task is successfully completed.
 
