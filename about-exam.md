@@ -48,21 +48,32 @@ What the exam _actually measures is judgment, not recall_. It's testing whether 
 
 ## What You'll Learn
 
-This guide is organized around the major knowledge areas covered by the certification and includes detailed explanations of topics such as:
+This study guide is structured around the **major domains of the Claude Certified Architect – Foundations certification**. Each module is designed to build both conceptual clarity and practical skills, with a strong focus on architecture-first thinking.  
 
-* Agentic architectures and orchestration patterns
-* Multi-agent systems and coordinator/sub-agent design
-* Tool design and Model Context Protocol (MCP)
-* Claude Code configuration and development workflows
-* Prompt engineering and structured outputs
-* Context management and session handling
-* Reliability, observability, and error recovery
-* Enterprise security and governance
-* Best practices, architectural trade-offs, and common implementation pitfalls
 
-Each module includes conceptual explanations, architecture diagrams, workflow illustrations, interview-style questions, and exam-focused notes to reinforce learning.
+### Knowledge Areas Covered
+- **Agentic architectures** and orchestration patterns  
+- **Multi-agent systems** and coordinator/sub-agent design  
+- **Tool design** and Model Context Protocol (MCP)  
+- **Claude Code configuration** and development workflows  
+- **Prompt engineering** and structured outputs  
+- **Context management** and session handling  
+- **Reliability**, observability, and error recovery  
+- **Enterprise security** and governance  
+- **Best practices**, architectural trade-offs, and common implementation pitfalls  
+
+
+
+### Learning Resources in Each Module
+- **Conceptual explanations** → Clear breakdowns of theory and design principles  
+- **Architecture diagrams** → Visual representations of workflows and system structures  
+- **Workflow illustrations** → Step-by-step depictions of agent interactions  
+- **Interview-style questions** → Practice for real-world and exam scenarios  
+- **Exam-focused notes** → Key takeaways aligned with certification objectives  
 
 ---
+
+👉 In short: this guide doesn’t just teach *what* to know — it shows *how* to apply it and *why* certain architectural choices matter in production.  
 
 ## Repository Structure
 
