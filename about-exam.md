@@ -42,7 +42,8 @@ What the exam _actually measures is judgment, not recall_. It's testing whether 
   
   **Audience**: Solution architects, AI engineers, and technical leads who are already designing or operating Claude-based systems in production and want to formalize that expertise into a recognized credential.
   
-  Prerequisites: No hard gate, but candidates get the most out of this course after completing the foundational Anthropic Academy sequence — Claude 101, Claude Code in Action, AI Fluency, Building with the Claude API, and Introduction to MCP. These establish the baseline vocabulary and hands-on familiarity that CCA-F builds on rather than re-teaches.
+  **Prerequisites**: No hard gate, but candidates get the most out of this course after completing the foundational Anthropic Academy sequence — Claude 101, Claude Code in Action, AI Fluency, Building with the Claude API, and Introduction to MCP. These establish the baseline vocabulary and hands-on familiarity that CCA-F builds on rather than re-teaches.
+
 ---
 
 ## What You'll Learn
