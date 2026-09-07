@@ -77,17 +77,23 @@ This study guide is structured around the **major domains of the Claude Certifie
 
 ## Repository Structure
 
-The content is organized into individual learning modules, allowing readers to progress from foundational concepts to advanced enterprise architectures. Topics are grouped according to the certification domains and follow a structured learning path that gradually builds practical expertise.
+This guide is organized into individual learning modules, enabling readers to progress step by step — from foundational concepts to advanced enterprise architectures. Topics are grouped according to the certification domains, forming a structured path that gradually builds practical expertise.
 
 Throughout the guide you'll find:
 
-* Detailed architecture diagrams
-* End-to-end workflow explanations
-* Real-world implementation examples
-* Common anti-patterns and how to avoid them
-* Design decision frameworks
-* Exam tips and interview questions
-* Hands-on examples using Claude APIs, MCP, and agentic workflows
+* Architecture diagrams → Visual breakdowns of system design and workflows
+
+* End-to-end explanations → Clear walkthroughs of how components interact in practice
+
+* Real-world examples → Case studies and applied scenarios for production systems
+
+* Anti-patterns → Common pitfalls and guidance on how to avoid them
+
+* Decision frameworks → Tools for making trade-offs in architecture and implementation
+
+* Exam tips → Strategies for certification success and interview readiness
+
+* Hands-on exercises → Practical examples using Claude APIs, MCP, and agentic workflows
 
 ---
 
@@ -116,6 +122,10 @@ A basic understanding of REST APIs, JSON, Python or JavaScript, and modern softw
 
 ## Disclaimer
 
-This is an **independent, community-maintained** study resource created to support learners preparing for the **Claude Certified Architect – Foundations** certification. It is **not an official Anthropic publication** and is **not affiliated with, endorsed by, or sponsored by Anthropic**.
+This repository is an **independent, community-maintained educational resource** intended solely to assist learners preparing for the **Claude Certified Architect – Foundations certification**. It is provided “as is” for informational and study purposes only.  
 
-While every effort has been made to ensure technical accuracy, certification objectives, platform capabilities, and implementation details may change over time. Readers are encouraged to consult the official Anthropic documentation and certification resources for the latest information.
+This resource is **not an official Anthropic publication** and is **not affiliated with, endorsed by, or sponsored by Anthropic**. No warranties, express or implied, are made regarding the accuracy, completeness, or reliability of the content.  
+
+Certification objectives, platform features, and implementation details may change without notice. Users are responsible for verifying all information against the **official Anthropic documentation** and **certification resources** to ensure they are working with the most current and authoritative guidance.  
+
+By using this repository, you acknowledge that it is a **supplementary study aid** and not a substitute for official materials.  
