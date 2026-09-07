@@ -29,9 +29,9 @@ Rather than just collecting notes, the guide is built around deep conceptual und
 
 ## About the Certification
 
-The **Claude Certified Architect – Foundations** certification is intended for professionals with practical experience designing applications using Claude technologies, including the Claude API, Claude Code, the Claude Agent SDK, and the Model Context Protocol (MCP).
+The **Claude Certified Architect – Foundations certification** is built for practitioners who already have real experience designing applications on Claude technologies — the Claude API, Claude Code, the Claude Agent SDK, and the Model Context Protocol (MCP). It isn't an entry-level credential for people just learning the surface area of these tools.
 
-The exam evaluates a candidate's ability to design reliable, scalable, and secure AI systems rather than simply recalling API syntax. Questions are primarily scenario-based and focus on applying architectural principles to real-world problems.
+What the exam _actually measures is judgment, not recall_. It's testing whether a candidate can design AI systems that are reliable, scalable, and secure under real constraints — not whether they can quote API parameters from memory. Accordingly, the questions are largely scenario-based: they present the kind of ambiguous, tradeoff-laden situations an architect encounters in production, and ask candidates to reason through architectural principles rather than retrieve syntax.
 
 ### Course Overview
 **Course Name:** Claude Certified Architect — Foundations (CCA‑F)
