@@ -120,10 +120,10 @@ Evolution of AI Systems
 - The core distinguishing question: **"Who decides the next step — the developer at design time, or the model at run time?"**
 - Recognizing hybrid systems: many production systems are workflows with an agentic sub-step (or vice versa), and part of the architectural skill is identifying which parts of a system need agentic flexibility and which don't
 
-#### The four pillars of agentic behavior
+### The four pillars of agentic behavior
 
 - **Perception** — how the agent takes in the current state: user input, tool results, environment feedback, prior context
-- **Selection (reasoning)** — the decision-making step where the model interprets perceived state against its goal and chooses an action (which tool, which argument values, or whether to respond directly)
+- **Cognition/(Selection or Reasoning)** — the decision-making step where the model interprets perceived state against its goal and chooses an action (which tool, which argument values, or whether to respond directly)
 - **Execution** — actually carrying out the chosen action (calling a tool, running code, hitting an API)
 - **Iteration** — feeding the result of execution back into perception, closing the loop, and deciding whether the goal is met or another cycle is needed
 - Architecturally, each pillar is a place where failure can be introduced — e.g., bad perception (stale or incomplete context), flawed selection (poor reasoning due to ambiguous tool descriptions), broken execution (tool errors not surfaced properly), or runaway iteration (no clear stopping condition)
