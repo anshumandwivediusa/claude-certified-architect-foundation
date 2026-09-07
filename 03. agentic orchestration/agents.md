@@ -9,6 +9,19 @@ Unlike a traditional chatbot that simply answers a question, an AI agent is **go
 <img width="500" height="350" alt="image" src="https://github.com/user-attachments/assets/29e5693b-433a-411b-9a9d-f1df75660aad" />
 </p>
 
+### Knowledge Bases: 
+From information theory, a knowledge base is essentially a structured encoding of information designed to minimize uncertainty.
+
+Modern KBs often integrate with ML models:
+  - Semantic search using embeddings (vector representations of text).
+  - Knowledge graphs linking entities and relationships.
+  - Contextual retrieval (e.g., RAG — Retrieval-Augmented Generation).
+
+Conceptual Role in AI:
+  - Acts as external memory for LLMs.
+  - Provides ground truth to reduce hallucinations.
+  - Enables reasoning over structured data (graphs, ontologies).
+
 ## Agentic Architecture and Execution Models
 
 **Agentic architecture** is the foundational design pattern behind modern AI systems that can work **autonomously (no human or logic dependent) toward a goal**. Instead of simply answering questions, these systems can **goal**, **plan**, **reason**, **take actions**, **evaluate outcomes**, and **adapt their approach** until the task is successfully completed.
