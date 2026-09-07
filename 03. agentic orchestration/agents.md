@@ -130,7 +130,11 @@ Evolution of AI Systems
 
 ### How tool use closes the gap between an LLM and the "action environment"
 
-- Without tools, an LLM only produces text — it can *describe* an action but not *perform* one
+- Without tools, an LLM only produces text — it can *describe* an action but not *perform* one.
+  By default, Claude is a large language model (LLM). In this mode, it can only generate text outputs. That means it can describe an action — for example, “to calculate 42 × 17, multiply the two numbers” — but it cannot actually perform the calculation or fetch live data. Its knowledge is limited to what’s encoded in its parameters and what fits inside the context window. When Claude is connected to tools (like APIs, databases, or calculators), its role changes. Instead of just describing an action, Claude can decide when a tool is needed, format a request in the right schema, and send it out. The tool executes the action, and Claude then interprets the result back into natural language.
+For example:
+  - Without tools → “Tesla’s stock price can be checked on a finance website.”
+  - With tools → Claude calls a stock API, retrieves the actual price, and presents it directly.
 - Tool use gives the model a structured way to request a real-world side effect (an API call, a file write, a database query) and receive a real-world result back
 - This is the mechanism that turns a "text generator" into something that can genuinely operate on external systems — the model's output becomes an *intent to act*, which the surrounding system executes and reports back on
 - Key related concepts:
