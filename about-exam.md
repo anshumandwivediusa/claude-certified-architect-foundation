@@ -34,16 +34,15 @@ The **Claude Certified Architect – Foundations certification** is built for pr
 What the exam _actually measures is judgment, not recall_. It's testing whether a candidate can design AI systems that are reliable, scalable, and secure under real constraints — not whether they can quote API parameters from memory. Accordingly, the questions are largely scenario-based: they present the kind of ambiguous, tradeoff-laden situations an architect encounters in production, and ask candidates to reason through architectural principles rather than retrieve syntax.
 
 ### Course Overview
-**Course Name:** Claude Certified Architect — Foundations (CCA‑F)
-
-**Purpose:** Prepares candidates for the Foundations certification exam.
-
-**Format:** Online, self‑paced modules with animated diagrams, hands‑on build exercises, and scenario‑based quizzes.
-
-**Audience:** Solution architects, AI engineers, technical leads working with Claude in production.
-
-**Prerequisites:** Recommended completion of Claude 101, Claude Code in Action, AI Fluency, Building with the Claude API, and Introduction to MCP.
-
+  **Course Name**: Claude Certified Architect — Foundations (CCA-F)
+  
+  **Purpose**: A structured, domain-by-domain preparation path for the CCA-F certification exam — built to develop applied architectural judgment, not just familiarity with the tools.
+  
+  **Format**: Self-paced, fully online. Modules combine animated diagrams to visualize system and orchestration patterns, hands-on build exercises to practice implementation decisions directly, and scenario-based quizzes that mirror the exam's emphasis on tradeoff reasoning over recall.
+  
+  **Audience**: Solution architects, AI engineers, and technical leads who are already designing or operating Claude-based systems in production and want to formalize that expertise into a recognized credential.
+  
+  Prerequisites: No hard gate, but candidates get the most out of this course after completing the foundational Anthropic Academy sequence — Claude 101, Claude Code in Action, AI Fluency, Building with the Claude API, and Introduction to MCP. These establish the baseline vocabulary and hands-on familiarity that CCA-F builds on rather than re-teaches.
 ---
 
 ## What You'll Learn
