@@ -97,14 +97,6 @@ Throughout the guide you'll find:
 
 ---
 
-## Keeping the Guide Current
-
-The Claude ecosystem continues to evolve, with regular updates to models, APIs, SDKs, and documentation. This guide is maintained to reflect significant changes across the platform and incorporates current architectural recommendations and development practices wherever possible.
-
-However, because the certification and platform evolve over time, readers should always verify implementation details, API behavior, model availability, and SDK changes against the official Anthropic documentation before using them in production or relying on them for certification preparation.
-
----
-
 ## Intended Audience & Prerequisites 
 
 This study guide is designed for:
