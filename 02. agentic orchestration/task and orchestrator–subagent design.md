@@ -242,3 +242,68 @@ def enforce_refund_limit(tool_call):
 | Example | Block refunds > $500 | “Try to solve before escalating” |
 
 **Rule:** when failure has financial, legal, or safety consequences—use hooks, not prompts.
+
+
+
+
+## Coordinator / Orchestrator Responsibilities
+- **Understand the goal** → Clarify user intent and define success criteria.  
+- **Decompose the task** → Break complex objectives into smaller subtasks.  
+- **Delegate** → Assign subtasks to specialized subagents.  
+- **Coordinate** → Route communication; subagents never talk directly.  
+- **Aggregate results** → Merge outputs into a coherent synthesis.  
+- **Handle failures** → Retry, re‑delegate, or escalate when subagents fail.  
+
+
+
+### Subagent Responsibilities
+- **Execute specialized tasks** → Focus on narrow domain expertise.  
+- **Return focused results** → Provide concise, structured outputs.  
+- **Operate within boundaries** → Respect allowed tools, prompts, and constraints.  
+
+
+
+### Subagent Invocation & Spawning
+- **Context management** → Pass only relevant context to avoid overload.  
+- **Context isolation** → Prevent leakage between subagents.  
+- **Return results to coordinator** → Always send outputs back to hub.  
+
+
+
+### Multi‑Agent Topologies
+- **Hub‑and‑spoke / coordinator**  
+  - Central coordinator manages all subagents.  
+  - *Exam cue:* Most common, ensures control.  
+
+- **Pipeline**  
+  - Sequential handoff from one agent to the next.  
+  - *Exam trap:* Poor failure containment; errors propagate downstream.  
+
+- **Peer‑to‑peer**  
+  - Agents communicate directly.  
+  - *Exam cue:* High flexibility, but weak control.  
+
+- **Hierarchical**  
+  - Layers of coordinators and sub‑coordinators.  
+  - *Exam cue:* Scales well, but adds latency.  
+
+
+
+### Trade‑offs (Exam Perspective)
+
+| **Factor** | **Hub‑and‑Spoke** | **Pipeline** | **Peer‑to‑Peer** | **Hierarchical** |
+|------------|-------------------|--------------|------------------|------------------|
+| **Coordination complexity** | Low | Medium | High | High |
+| **Failure containment** | Strong | Weak | Weak | Moderate |
+| **Context sharing** | Centralized | Sequential | Distributed | Layered |
+| **Latency** | Moderate | High | Variable | High |
+| **Scalability** | Moderate | Low | High | High |
+
+
+
+## ⚠️ Common Exam Traps
+- Forgetting that **subagents never talk directly** in hub‑and‑spoke.  
+- Assuming pipeline is always efficient — it often increases latency.  
+- Ignoring **context isolation** → examiners penalize answers that allow leakage.  
+- Not mentioning **failure handling** as a coordinator duty.  
+
