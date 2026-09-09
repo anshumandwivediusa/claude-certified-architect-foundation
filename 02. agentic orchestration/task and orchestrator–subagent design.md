@@ -58,6 +58,63 @@ agent = AgentDefinition(
 
 
 
+```json
+// TOOL definition (capability)
+{
+  "name": "search_web",
+  "description": "Fetches fresh information from the web",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": { "type": "string" }
+    }
+  }
+}
+
+// TASK execution (objective)
+{
+  "task": "Find latest AI conference in India and draft invite email",
+  "steps": [
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01",
+          "name": "search_web",
+          "input": { "query": "latest AI conference India 2026" }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_01",
+          "content": "Conference: AI Summit Delhi, Oct 2026"
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_02",
+          "name": "compose_email",
+          "input": {
+            "subject": "Invitation: AI Summit Delhi 2026",
+            "body": "Join us at the AI Summit in Delhi this October...",
+            "to_recipients": ["team@example.com"]
+          }
+        }
+      ]
+    }
+  ],
+  "stop_reason": "end_turn"
+}
+```
 ### Relationship
 - Tools are **building blocks**.  
 - Tasks are **orchestrated goals** that may use tools.  
