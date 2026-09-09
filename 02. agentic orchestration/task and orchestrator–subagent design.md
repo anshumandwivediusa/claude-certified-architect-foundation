@@ -1,6 +1,6 @@
 # 05. Claude Agent SDK — Building Agentic Systems
 
-## 1 What is an Agentic Loop
+## 1. What is an Agentic Loop
 - Core pattern for autonomous task execution.
 - Model doesn’t just answer — it acts in a loop until completion.
 
@@ -21,7 +21,7 @@
 
 **Correct approach:** the only reliable completion signal is `stop_reason == "end_turn"`.
 
-## 3.2 `AgentDefinition` Configuration
+## 2 `AgentDefinition` Configuration
 
 `AgentDefinition` is the agent configuration object in the Claude Agent SDK:
 
@@ -41,7 +41,58 @@ agent = AgentDefinition(
 - `system_prompt` — system prompt with instructions
 - `allowed_tools` — list of allowed tools (principle of least privilege)
 
-## 3.3 Hub-and-Spoke: Coordinator and Subagents
+
+## Tool vs. Task
+
+- **Tool**  
+  - A **capability** exposed to the model (e.g., `search_web`, `compose_email`).  
+  - Defined with a **name, schema, and parameters**.  
+  - Passive — it does nothing until the model decides to call it.  
+  - *Exam cue:* Think of a tool as a **function** or API endpoint.  
+
+- **Task**  
+  - A **unit of work** the agent must accomplish (e.g., “summarize article,” “book flight”).  
+  - May require multiple tool calls + reasoning steps.  
+  - Active — it represents the **goal** or job being executed.  
+  - *Exam cue:* Task = **workflow objective**, not just a function.  
+
+
+
+### Relationship
+- Tools are **building blocks**.  
+- Tasks are **orchestrated goals** that may use tools.  
+- Example:  
+  - Task: *“Find latest AI conference in India and draft an email invite.”*  
+  - Tools: `search_web` (conference info), `compose_email` (draft invite).  
+
+
+
+### Exam Trade‑offs
+| **Aspect** | **Tool** | **Task** | **Exam Trap** |
+|------------|----------|----------|----------------|
+| **Definition** | Function/API | Goal/Objective | Confusing them as synonyms |
+| **Scope** | Narrow capability | Broad execution | Forgetting tasks can span tools |
+| **Control** | Schema‑driven | Context‑driven | Assuming tasks are predefined |
+| **Lifecycle** | Called once | May loop until completion | Ignoring agentic loop |
+| **Ownership** | Architect defines | Model orchestrates | Forgetting tasks are model‑driven |
+
+
+
+### Anti‑Patterns
+- Treating a **tool** as a **task** (e.g., “search_web = task”).  
+- Designing tasks without clear **termination criteria**.  
+- Overloading tools with task logic instead of keeping them atomic.  
+
+
+
+### Key Principle
+- **Tool = capability. Task = objective.**  
+- Tools are invoked; tasks are completed.  
+- Agentic loop = model orchestrates tools to achieve tasks.  
+
+
+
+## 3 Hub-and-Spoke: Coordinator and Subagents
 
 A multi-agent architecture is typically built as a hub-and-spoke topology:
 
@@ -66,7 +117,7 @@ A multi-agent architecture is typically built as a hub-and-spoke topology:
 - Subagents do not share memory across calls
 - All communication flows through the coordinator (for observability and error control)
 
-## 3.4 The `Task` Tool for Spawning Subagents
+## 4 The `Task` Tool for Spawning Subagents
 
 Subagents are spawned via the `Task` tool:
 
@@ -100,7 +151,7 @@ Task 3: "Search for articles about Z"
 # All three run concurrently
 ```
 
-## 3.5 Hooks in the Agent SDK
+## 5 Hooks in the Agent SDK
 
 Hooks allow interception and transformation at specific points in the agent lifecycle.
 
