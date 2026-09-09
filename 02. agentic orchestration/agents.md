@@ -27,35 +27,149 @@ Conceptual Role in AI:
 
 Based on the exam guide and prep sources, here's the breakdown of **Domain 1: Agentic Architecture & Orchestration (27%)** — the highest-weighted domain on the exam:
 
-**1. Foundational agent concepts**
-- Distinguishing agents from workflows and conversational systems
-- The four pillars of agentic behavior: perception, selection (reasoning), execution, iteration
-- How tool use closes the gap between an LLM and the "action environment" — i.e., what turns a model into something that can actually *act* on the world, not just respond to it
+### 1. Foundational Agent Concepts
 
-**2. The agentic loop lifecycle**
-- Sending requests, inspecting `stop_reason` (`tool_use` vs. `end_turn`) to decide the next step
-- Executing tools and returning results back into the loop
-- Loop control: defining termination conditions, turn budgets, and escalation paths — covering task-complete, error-threshold, budget-exhausted, and explicit stop signals (this is squarely about preventing infinite or runaway loops)
+* **Agent vs. workflow vs. conversational system**
 
-**3. When to use agentic architecture at all**
-- Agentic vs. simpler patterns — recognizing when a fixed workflow beats a model-driven loop
-- Comparing pre-scripted workflows against model-driven agentic sequences, with emphasis on tool description quality and safety tradeoffs
+  * When each approach is appropriate
+  * Degree of autonomy and model-driven decision-making
+* **Core agentic capabilities:** perception → reasoning/selection → action/execution → observation → iteration
+* **Tool use as the action interface**
 
-**4. Task decomposition and execution strategy**
-- How a coordinator breaks a complex request into distinct concerns, identifies dependencies, and decides what runs in parallel vs. sequentially
-- Recognizing the anti-pattern: skipping decomposition and handing an underspecified task straight to execution
+  * How tools connect an LLM to external systems and the environment
+  * Why an LLM alone generates responses, while tools enable **real-world actions**
+* **Agent autonomy and control**
 
-**5. Orchestrator–subagent design**
-- Coordinator/subagent roles and responsibilities
-- Configuring subagent invocation, spawning strategy, and context sharing
-- Multi-agent topology choice — hub-and-spoke vs. pipeline vs. peer-to-peer — and what each implies for failure containment and coordination overhead
+  * Balancing autonomous behavior with deterministic application logic
 
-**6. Session and state management**
-- Session state, resumption, and forking workflows
-- Managing context handoff between steps and between agents
+### 2. The Agentic Loop Lifecycle
 
-**7. Enforcement and hooks**
-- Applying Agent SDK hooks to intercept and enforce business rules programmatically (e.g., forcing a specific tool sequence before a sensitive action executes) — a recurring exam theme is *deterministic enforcement vs. relying on prompt-based instruction*
+* Request → model reasoning → tool selection → tool execution → tool result → next model turn
+* Interpreting `stop_reason`
+
+  * `tool_use` → execute the requested tool and continue the loop
+  * `end_turn` → model considers the task complete
+* Returning tool results correctly into the conversation
+* **Loop-control mechanisms**
+
+  * Task-complete termination
+  * Explicit stop signals
+  * Error/failure thresholds
+  * Maximum turns / iteration budgets
+  * Timeout and resource limits
+  * Escalation to another agent or human
+* **Runaway-loop prevention**
+
+  * Avoiding infinite tool calls
+  * Limiting retries and iterations
+  * Defining clear termination criteria
+
+> **Exam focus:** Can you design an agent loop that is autonomous **without becoming uncontrolled?**
+
+### 3. When to Use Agentic Architecture
+
+* **Agentic approach vs. deterministic workflow**
+* Recognizing when a fixed workflow is preferable
+* Comparing:
+
+  * Predefined/scripted sequences
+  * Model-driven dynamic sequences
+* Trade-offs:
+
+  * Flexibility
+  * Predictability
+  * Cost
+  * Latency
+  * Reliability
+  * Safety
+* Importance of **clear tool descriptions and constraints**
+* Avoiding unnecessary agentic complexity
+
+> **Key principle:** If the steps are known and deterministic, a workflow is often better than an agent.
+
+
+### 4. Task Decomposition & Execution Strategy
+
+* Breaking a complex goal into **well-defined subtasks**
+* Identifying:
+
+  * Independent tasks
+  * Dependencies
+  * Ordering constraints
+  * Shared data/context
+* Choosing **sequential vs. parallel execution**
+* Aggregating results from parallel tasks
+* Dynamic decomposition when the required steps aren't known beforehand
+* **Anti-pattern:** Sending an ambiguous, oversized task directly to an execution agent without first establishing its scope/dependencies
+
+
+### 5. Orchestrator–Subagent Design
+
+* **Coordinator/orchestrator responsibilities**
+
+  * Understand the goal
+  * Decompose the task
+  * Delegate
+  * Coordinate
+  * Aggregate results
+  * Handle failures
+* **Subagent responsibilities**
+
+  * Execute specialized tasks
+  * Return focused results
+  * Operate within defined boundaries
+* Subagent invocation and spawning strategies
+* **Context management**
+
+  * What context should be passed to a subagent
+  * Context isolation
+  * Returning results to the coordinator
+* Choosing an appropriate **multi-agent topology**
+
+  * Hub-and-spoke / coordinator
+  * Pipeline
+  * Peer-to-peer
+  * Hierarchical
+* Trade-offs:
+
+  * Coordination complexity
+  * Failure containment
+  * Context sharing
+  * Latency
+  * Scalability
+
+> **Exam focus:** Choose the simplest topology that provides the required specialization and coordination.
+
+
+
+### 6. Session, Context & State Management
+
+* Session state and conversation continuity
+* **Resume vs. fork**
+* Maintaining state across multiple turns
+* Context handoff between workflow steps
+* Context handoff between coordinator and subagents
+* Avoiding unnecessary context propagation
+* Managing context boundaries and isolation
+* Deciding when to:
+
+  * Continue the current session
+  * Fork a session
+  * Start a new context
+
+> **Important distinction:** **Session state ≠ agent context.** A session may persist information, while an individual agent/subagent should receive only the context it needs.
+
+
+
+### 7. Enforcement, Hooks & Deterministic Controls
+
+* Using **Agent SDK hooks** to intercept agent/tool activity
+* Programmatically enforcing business and security rules
+* Pre-tool and post-tool controls
+* Validating or modifying actions before execution
+* Preventing prohibited tool sequences
+* Requiring prerequisites before sensitive operations
+
 
 ### What the exam actually does with this domain
 
