@@ -6,7 +6,7 @@ An **AI Agent** is an AI system that can **understand a goal, make decisions, us
 
 Unlike a traditional chatbot that simply answers a question, an AI agent is **Autonomous & Goal-oriented**. It can plan, execute tasks, and adapt based on what happens during execution.
 <p align="center">
-<img width="500" height="350" alt="image" src="https://github.com/user-attachments/assets/29e5693b-433a-411b-9a9d-f1df75660aad" />
+  <img width="500" height="350" alt="image" src="https://github.com/user-attachments/assets/cb60b6b6-6158-4391-884c-c32a6d8ec3ca" />
 </p>
 
 ``` Knowledge Bases: 
