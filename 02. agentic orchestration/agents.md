@@ -28,30 +28,23 @@ Conceptual Role in AI:
 Based on the exam guide and prep sources, here's the breakdown of **Domain 1: Agentic Architecture & Orchestration (27%)** — the highest-weighted domain on the exam:
 
 ### 1. Foundational Agent Concepts
-
 * **Agent vs. workflow vs. conversational system**
-
   * When each approach is appropriate
   * Degree of autonomy and model-driven decision-making
 * **Core agentic capabilities:** perception → reasoning/selection → action/execution → observation → iteration
 * **Tool use as the action interface**
-
   * How tools connect an LLM to external systems and the environment
   * Why an LLM alone generates responses, while tools enable **real-world actions**
 * **Agent autonomy and control**
-
   * Balancing autonomous behavior with deterministic application logic
 
 ### 2. The Agentic Loop Lifecycle
-
 * Request → model reasoning → tool selection → tool execution → tool result → next model turn
 * Interpreting `stop_reason`
-
   * `tool_use` → execute the requested tool and continue the loop
   * `end_turn` → model considers the task complete
 * Returning tool results correctly into the conversation
 * **Loop-control mechanisms**
-
   * Task-complete termination
   * Explicit stop signals
   * Error/failure thresholds
@@ -59,7 +52,6 @@ Based on the exam guide and prep sources, here's the breakdown of **Domain 1: Ag
   * Timeout and resource limits
   * Escalation to another agent or human
 * **Runaway-loop prevention**
-
   * Avoiding infinite tool calls
   * Limiting retries and iterations
   * Defining clear termination criteria
@@ -67,15 +59,12 @@ Based on the exam guide and prep sources, here's the breakdown of **Domain 1: Ag
 > **Exam focus:** Can you design an agent loop that is autonomous **without becoming uncontrolled?**
 
 ### 3. When to Use Agentic Architecture
-
 * **Agentic approach vs. deterministic workflow**
 * Recognizing when a fixed workflow is preferable
 * Comparing:
-
   * Predefined/scripted sequences
   * Model-driven dynamic sequences
 * Trade-offs:
-
   * Flexibility
   * Predictability
   * Cost
@@ -92,7 +81,6 @@ Based on the exam guide and prep sources, here's the breakdown of **Domain 1: Ag
 
 * Breaking a complex goal into **well-defined subtasks**
 * Identifying:
-
   * Independent tasks
   * Dependencies
   * Ordering constraints
@@ -104,9 +92,7 @@ Based on the exam guide and prep sources, here's the breakdown of **Domain 1: Ag
 
 
 ### 5. Orchestrator–Subagent Design
-
 * **Coordinator/orchestrator responsibilities**
-
   * Understand the goal
   * Decompose the task
   * Delegate
@@ -114,24 +100,20 @@ Based on the exam guide and prep sources, here's the breakdown of **Domain 1: Ag
   * Aggregate results
   * Handle failures
 * **Subagent responsibilities**
-
   * Execute specialized tasks
   * Return focused results
   * Operate within defined boundaries
 * Subagent invocation and spawning strategies
 * **Context management**
-
   * What context should be passed to a subagent
   * Context isolation
   * Returning results to the coordinator
 * Choosing an appropriate **multi-agent topology**
-
   * Hub-and-spoke / coordinator
   * Pipeline
   * Peer-to-peer
   * Hierarchical
 * Trade-offs:
-
   * Coordination complexity
   * Failure containment
   * Context sharing
@@ -141,9 +123,7 @@ Based on the exam guide and prep sources, here's the breakdown of **Domain 1: Ag
 > **Exam focus:** Choose the simplest topology that provides the required specialization and coordination.
 
 
-
 ### 6. Session, Context & State Management
-
 * Session state and conversation continuity
 * **Resume vs. fork**
 * Maintaining state across multiple turns
@@ -152,7 +132,6 @@ Based on the exam guide and prep sources, here's the breakdown of **Domain 1: Ag
 * Avoiding unnecessary context propagation
 * Managing context boundaries and isolation
 * Deciding when to:
-
   * Continue the current session
   * Fork a session
   * Start a new context
@@ -160,9 +139,7 @@ Based on the exam guide and prep sources, here's the breakdown of **Domain 1: Ag
 > **Important distinction:** **Session state ≠ agent context.** A session may persist information, while an individual agent/subagent should receive only the context it needs.
 
 
-
 ### 7. Enforcement, Hooks & Deterministic Controls
-
 * Using **Agent SDK hooks** to intercept agent/tool activity
 * Programmatically enforcing business and security rules
 * Pre-tool and post-tool controls
@@ -172,7 +149,6 @@ Based on the exam guide and prep sources, here's the breakdown of **Domain 1: Ag
 
 
 ### What the exam actually does with this domain
-
 Sample question framing tends to look like: *"Design an agentic loop with tool integration, structured error handling, and escalation logic"* or *"Choose the correct enforcement mechanism when a specific tool sequence is required for critical business logic."* The recurring theme — confirmed across independent prep sources — is that Domain 1 rewards recognizing when *programmatic* guarantees are needed versus when prompt-level guidance is sufficient, and this domain frequently overlaps with Domain 2 (Tool Design & MCP) and Domain 5 (Context Management) in the same scenario.
 
 
