@@ -1,88 +1,84 @@
-# Skills in Claude: Exam Notes
+# Skills in Claude
 
-A **Skill** is a reusable folder of instructions, and optionally scripts and reference files, that teaches Claude how to perform a specific type of task consistently.
+## The Big Idea: A Story
 
-## 2. Key Points to Memorize
-- **Core file:** `SKILL.md` (required)
-- **Metadata:** every skill has a **name** and a **description**
-- **Loading:** Claude loads a skill only when a task matches its description
-- **Purpose:** consistency, repeatability, and domain expertise without re-prompting
-- **Persistence:** a skill is saved and reusable, unlike a prompt, which lives in one chat
+A skill is a handbook that turns a smart generalist AI into your specialist. Imagine you hire a smart new employee who knows a little about everything but nothing about how your company works.
 
-## 3. Structure of a Skill
+You have three options:
 
-| Component | Role |
-|---|---|
-| `SKILL.md` | Main instructions: steps, rules, examples |
-| Name + description | Tells Claude *what* the skill is and *when* to use it |
-| Scripts (optional) | Code Claude can run, e.g. to build files |
-| Reference files (optional) | Templates, guidelines, sample data |
+1. **Explain everything every morning (prompt engineering).** It works, but it is tiring, and you may forget details on some days.
+2. **Send them to years of special training (fine-tuning).** They become an expert, but it is slow and costly, and you cannot easily change what they learned.
+3. **Give them a handbook (a skill).** They read it when needed and follow your exact process. If the process changes, you edit the handbook.
 
-## 4. How Skills Work: Progressive Disclosure
-1. Claude initially sees **only the name and description** of each skill.
-2. When a request matches, Claude **reads the full `SKILL.md`**.
-3. If needed, it then opens **extra files or scripts** in the folder.
+The employee is the AI. The handbook is the skill.
 
-**Why it matters:** this saves context space, since only relevant instructions are loaded.
+## Simple Definition
 
-## 5. Types of Skills
-- **Built-in skills:** provided by Anthropic, e.g. Word (.docx), PDF, PowerPoint (.pptx), Excel (.xlsx)
-- **Custom skills:** created by a user for personal workflows
-- **Organization skills:** shared across a team or company
+A skill is a **reusable instruction package** that teaches an AI how to do a specific kind of task the right way.
 
-## 6. Invocation
-- **Automatic:** Claude matches the task to a skill's description
-- **Manual:** the user calls it by name, often as a slash command (`/skill-name`)
+It packages curated instructions, workflows, contextual knowledge, and best practices for one domain, such as cloud architecture, insurance claim processing, software development, or data analysis.
 
-## 7. Skills vs. Related Concepts
+## Real Example: Insurance Claims
 
-| Concept | Difference |
-|---|---|
-| **Prompt** | One-time instruction, not reusable |
-| **Skill** | Saved, reusable procedure, loaded on demand |
-| **Connector (MCP)** | Gives Claude *access* to external apps and data |
-| **Memory** | Stores facts and preferences about the user |
+Without a skill, the AI guesses at the right approach, so results vary from claim to claim. With an Insurance Claim Processing skill, it follows the same steps every time.
 
-**Memory trick:** *Connectors = access, Skills = know-how, Memory = personal facts.*
+|  | Without a skill | With a skill |
+| --- | --- | --- |
+| You ask | "Process this claim." | "Process this claim." |
+| What happens | One day it checks the policy first, another day it does not | It always runs the same five steps |
+| Result | Varies | Consistent |
 
-## 8. Benefits
-- Consistent output quality and format
-- Saves time (no retyping instructions)
-- Efficient context usage
-- Shareable across teams
-- Encodes expert or company-specific processes
+The five steps the skill enforces:
 
-## 9. Example Use Cases
-- Writing reports in a company house style
-- Reviewing contracts against a checklist
-- Generating formatted Excel or PowerPoint files
-- Following a standard research or analysis process
+1. Verify the policy is active.
+2. Check what the policy covers.
+3. Look for missing documents.
+4. Flag possible fraud signs.
+5. Write the decision in the company format.
 
-## 10. Minimal `SKILL.md` Example
-```markdown
----
-name: weekly-report
-description: Use when the user asks for a weekly status report.
----
+## Comparison in One Table
 
-1. Summarize completed work in 3 bullets.
-2. List blockers.
-3. End with next week's priorities.
-```
+Skills beat prompt engineering on reuse and fine-tuning on cost, while tools solve a different problem.
 
-## 11. Likely Exam Questions
+| Approach | Think of it as | Weakness |
+| --- | --- | --- |
+| Prompt engineering | Giving verbal instructions every day | Repetitive, inconsistent |
+| Fine-tuning | Sending the employee to years of training | Costly, hard to update |
+| Skills | Giving a handbook | Very little: cheap and easy to edit |
+| Tools | Giving a phone, a computer, or a key | Gives ability, not know-how |
 
-**Q1. What is the required file in a skill?** `SKILL.md`.
+## Skills vs. Tools
 
-**Q2. What does Claude see before loading a skill?** Only its name and description.
+Students mix these up most often. A tool is what the AI **can do**, and a skill is how the AI should **think and work**.
 
-**Q3. Why use progressive disclosure?** To use context efficiently by loading only relevant instructions.
+|  | Tool | Skill |
+| --- | --- | --- |
+| Role | Gives the AI an ability | Gives the AI know-how |
+| Examples | Search the web, open a file, send an email | The steps and standards to follow |
 
-**Q4. Skill vs. prompt?** A skill is reusable and saved; a prompt applies to one conversation.
+For example, a tool lets the AI open an Excel file, while a skill tells it how to build a good financial report inside it.
 
-**Q5. Two ways to trigger a skill?** Automatic matching, or manual invocation by name or slash command.
+**Memory trick:** Tools = hands. Skills = know-how.
 
-## 12. One-Line Summary
-> Skills package expertise into reusable folders that Claude loads only when needed, giving consistent, high-quality results for repeated tasks.
+## Why Skills Are Useful
 
-If these notes were meant for a different exam topic, tell me the subject and level and I'll rewrite them. I can also turn these into a Word document or a practice quiz.
+Skills give consistent results at low cost, and the AI keeps its general intelligence.
+
+| Benefit | Meaning |
+| --- | --- |
+| Reusable | Write once, use again and again |
+| Consistent | Same quality every time |
+| Easy to update | Edit the instructions, no retraining |
+| Low cost | No expensive model training |
+| Flexible | The AI keeps its general intelligence |
+
+## Exam Summary
+
+Skills are lightweight, reusable packages of instructions, workflows, and best practices that turn a general-purpose AI into a domain specialist. They are better than repeated prompting because they are reusable and standardized, and better than fine-tuning because they are cheaper and easier to update. Tools give the AI *abilities*, while skills improve *how it approaches the task*.
+
+## Quick Recall Questions
+
+1. **What is a skill?** A reusable instruction package that makes a general AI act like a specialist.
+2. **Skill vs. fine-tuning?** A skill is cheaper and can be updated by editing files, with no retraining.
+3. **Skill vs. tool?** A tool adds what the AI can do, while a skill shapes how it does it.
+4. **Simple analogy?** A skill is a handbook for a smart new employee.
