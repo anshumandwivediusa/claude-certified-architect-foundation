@@ -1,4 +1,4 @@
-# Skills in Claude
+# Skills
 
 ## The Big Idea: A Story
 
