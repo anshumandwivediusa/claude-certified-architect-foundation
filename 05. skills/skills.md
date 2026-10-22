@@ -12,13 +12,13 @@ You have three options:
 
 The employee is the AI. The handbook is the skill.
 
-## Simple Definition
+### Simple Definition
 
 A skill is a **reusable instruction package** that teaches an AI how to do a specific kind of task the right way.
 
 It packages curated instructions, workflows, contextual knowledge, and best practices for one domain, such as cloud architecture, insurance claim processing, software development, or data analysis.
 
-## Real Example: Insurance Claims
+### Real Example: Insurance Claims
 
 Without a skill, the AI guesses at the right approach, so results vary from claim to claim. With an Insurance Claim Processing skill, it follows the same steps every time.
 
@@ -36,7 +36,7 @@ The five steps the skill enforces:
 4. Flag possible fraud signs.
 5. Write the decision in the company format.
 
-## Comparison in One Table
+### Comparison in One Table
 
 Skills beat prompt engineering on reuse and fine-tuning on cost, while tools solve a different problem.
 
