@@ -72,9 +72,9 @@ Skills give consistent results at low cost, and the AI keeps its general intelli
 | Low cost | No expensive model training |
 | Flexible | The AI keeps its general intelligence |
 
-## Exam Summary
+## Summary
 
-Skills are lightweight, reusable packages of instructions, workflows, and best practices that turn a general-purpose AI into a domain specialist. They are better than repeated prompting because they are reusable and standardized, and better than fine-tuning because they are cheaper and easier to update. Tools give the AI *abilities*, while skills improve *how it approaches the task*.
+Skills are lightweight, reusable packages/folder of instructions, workflows, and best practices that turn a general-purpose AI into a domain specialist. They are better than repeated prompting because they are reusable and standardized, and better than fine-tuning because they are cheaper and easier to update. Tools give the AI *abilities*, while skills improve *how it approaches the task*.
 
 ## Quick Recall Questions
 
