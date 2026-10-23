@@ -5,7 +5,7 @@ Words, requests, and data are ambiguous on their own. Context is what removes th
 *Example:* The word "bank" means different things next to "river" and next to "loan." Likewise, "fix it" is meaningless unless you know what "it" refers to.
 
  ## What "context" means in Claude?
-**Context** is everything Claude can see at the moment it writes a reply. It is Claude's working desk: only what is on the desk can be used.
+Context is all the information (text, files, images, tool results, prior messages, and Claude’s own output so far) supplied to the model in a given call, up to the context-window limit. It is the only information Claude can use directly, apart from what it learned in training. It is Claude's working desk: only what is on the desk can be used.
 
 It includes:
 - System prompt (rules, role, instructions)
