@@ -103,6 +103,9 @@ Exact window sizes vary by model, so check Anthropic's docs for current numbers 
 
 ## 4. Context Window Internals
 
+<img width="937" height="630" alt="image" src="https://github.com/user-attachments/assets/00502421-6b0f-4280-8994-d9cd8f1e6ff8" />
+
+
 Claude Code's context window holds 200k tokens by default, and your messages, Claude's replies, and everything Claude reads or runs all draw from that one budget.
 
 - **Fresh each session.** A new session starts with an empty window. Nothing carries over automatically, so durable facts belong in files such as CLAUDE.md.
