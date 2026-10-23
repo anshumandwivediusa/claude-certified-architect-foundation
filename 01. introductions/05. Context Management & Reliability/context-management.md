@@ -1,14 +1,10 @@
 # Context Management
 
 **Context** is all the information available to understand something correctly.
-
 Words, requests, and data are ambiguous on their own. Context is what removes the ambiguity.
-
 *Example:* The word "bank" means different things next to "river" and next to "loan." Likewise, "fix it" is meaningless unless you know what "it" refers to.
 
- # Context vs. Memory
-
-## What "context" means
+ ## What "context" means in Claude?
 **Context** is everything Claude can see at the moment it writes a reply. It is Claude's working desk: only what is on the desk can be used.
 
 It includes:
