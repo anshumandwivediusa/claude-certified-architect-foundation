@@ -4,7 +4,9 @@
 Words, requests, and data are ambiguous on their own. Context is what removes the ambiguity.
 *Example:* The word "bank" means different things next to "river" and next to "loan." Likewise, "fix it" is meaningless unless you know what "it" refers to.
 
- ## What "context" means in Claude?
+## "Context", "Context Management" and "Memory" in Claude?
+
+### What "context" means in Claude?
 Context is all the information (text, files, images, tool results, prior messages, and Claude’s own output so far) supplied to the model in a given call, up to the context-window limit. It is the only information Claude can use directly, apart from what it learned in training. It is Claude's working desk: only what is on the desk can be used.
 
 It includes:
@@ -17,7 +19,7 @@ It includes:
 
 It is **temporary and limited**. It has a token limit (the context window), and Claude does not "know" anything outside it unless it is placed there.
 
-## What "memory" means
+### What "memory" means?
 **Memory** is information stored outside the context window that persists across turns or sessions. It is the filing cabinet next to the desk. Examples are saved notes, user preferences, files, and a database.
 
 Memory does nothing until something is **retrieved and placed into context**. Stored facts only affect an answer once they are loaded onto the desk.
@@ -30,7 +32,9 @@ Memory does nothing until something is **retrieved and placed into context**. St
 | Used by Claude | Directly, always | Only after being loaded into context |
 | Analogy | Desk | Filing cabinet |
 
-## Why the definition says "deciding what is in the window at each step"
+### Why the definition says "deciding what is in the window at each step"?
+Context Management is deciding what is in the window at each step.
+
 Claude is **stateless**: every step starts fresh with only what is in the window. So someone (the app, the developer, or Claude via tools) must decide, at every step:
 
 1. **What to keep** (recent turns, key instructions)
@@ -39,25 +43,25 @@ Claude is **stateless**: every step starts fresh with only what is in the window
 4. **What to store** (move durable facts to memory)
 5. **What to load** (retrieve only the relevant memory or documents)
 
-## Why this keeps Claude "accurate and efficient"
+### Why this keeps Claude "accurate and efficient"
 - **Accurate:** The right facts are present, and irrelevant clutter does not distract the model or push important details out of attention.
 - **Efficient:** Fewer tokens mean lower cost and faster responses.
 - **Long tasks:** Without management, the window fills up, early details are lost or diluted, and quality drops.
 
-## Example
+### Example
 In a long coding session, Claude reads 50 files. Good context management keeps only the 3 relevant ones in the window, summarizes earlier decisions, and saves "project uses TypeScript, tests in /tests" to memory, to be loaded again in the next session.
 
-**One-liner:** *Context is what Claude sees now; memory is what is saved for later; context management decides what moves between them.*
+
+***Context is what Claude sees now; memory is what is saved for later; context management decides what moves between them.***
 
 
-
-**Core concepts**
+## **Core Concepts**
 - **Context window:** The maximum tokens Claude can "see" at once. It covers the system prompt, tool definitions, conversation history, tool results, attachments, and the model's own output.
 - **Statelessness:** The model keeps nothing between calls. The full relevant context must be resent each turn (or supplied by the app).
 - **Context rot / dilution:** As context grows, the signal-to-noise ratio drops. Cost and latency rise, and attention to important details can weaken. More tokens is not always better.
 - **Goal:** The smallest set of high-signal tokens that lets Claude do the task well.
 
-**Main techniques**
+### **Main techniques**
 1. **Compaction / summarization:** Condense old history into a summary and continue with that. It frees space but is lossy.
 2. **Context editing / pruning:** Drop stale items, such as old tool results or irrelevant turns, while keeping recent and important ones.
 3. **External memory:** Store durable facts outside the window (files, notes, a memory tool, a database) and retrieve them when needed. This gives persistence across sessions.
@@ -71,6 +75,5 @@ In a long coding session, Claude reads 50 files. Good context management keeps o
 - Compressing saves tokens but can lose details.
 - Memory persists information but needs good retrieval and upkeep.
 
-**One-line summary:** Context management is curating, compressing, and externalizing information so Claude always has the right context, not the most context.
+Context management is curating, compressing, and externalizing information so Claude always has the right context, not the most context.
 
-Exact feature names and limits (window size, memory and editing tools) change between versions, so check Anthropic's docs for current specifics before an exam that needs them.
