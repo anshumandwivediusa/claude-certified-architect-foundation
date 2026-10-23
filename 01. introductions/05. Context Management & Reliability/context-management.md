@@ -61,7 +61,7 @@ In a long coding session, Claude reads 50 files. Good context management keeps o
 - **Context rot / dilution:** As context grows, the signal-to-noise ratio drops. Cost and latency rise, and attention to important details can weaken. More tokens is not always better.
 - **Goal:** The smallest set of high-signal tokens that lets Claude do the task well.
 
-### **Main techniques**
+### **Main Techniques**
 1. **Compaction / summarization:** Condense old history into a summary and continue with that. It frees space but is lossy.
 2. **Context editing / pruning:** Drop stale items, such as old tool results or irrelevant turns, while keeping recent and important ones.
 3. **External memory:** Store durable facts outside the window (files, notes, a memory tool, a database) and retrieve them when needed. This gives persistence across sessions.
