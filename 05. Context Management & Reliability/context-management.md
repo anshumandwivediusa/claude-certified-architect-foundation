@@ -101,7 +101,87 @@ Because the window is finite, **context management** is needed: compaction, prun
 
 Exact window sizes vary by model, so check Anthropic's docs for current numbers if your exam needs them.
 
-### **Main Techniques**
+## 4. Context Window Internals
+
+Claude Code's context window holds 200k tokens by default, and your messages, Claude's replies, and everything Claude reads or runs all draw from that one budget.
+
+- **Fresh each session.** A new session starts with an empty window. Nothing carries over automatically, so durable facts belong in files such as CLAUDE.md.
+- **Input and output share the budget.** Claude's replies, tool calls, and tool results usually consume far more tokens than your prompts.
+- **Context vs. window.** Context is what sits in the window right now. The window is the size limit.
+- **200k is the default, not a fixed rule.** Newer models can run a 1M window in Claude Code, so say "200k by default" unless a question fixes the model.
+
+### Anatomy of the 200k window
+
+About 20k of the window is spent before you type anything, and the growing layers (history and tool results) fill most of the rest.
+
+| Layer | Approx. size | Behavior | What it is |
+| --- | --- | --- | --- |
+| System prompt | \~6k | Fixed | Built-in instructions that define how Claude Code behaves. |
+| Tool schemas | \~8k | Fixed | Definitions of built-in tools (read, edit, search, shell). |
+| CLAUDE.md | \~1k (illustrative) | Persistent | Your project instructions, re-read every session. |
+| Skills + MCP | \~5k (illustrative) | Loads at startup | Skill descriptions and connected MCP tools. Varies widely. |
+| Conversation history | \~45% of window in long sessions | Grows | Your messages and Claude's replies, resent every call. |
+| Tool results | Grows with each action | Grows | File reads, bash output, grep matches. |
+| Free space | Whatever remains | Shrinks | Room for new work before compaction. |
+| Autocompact buffer | \~33k | Reserved | Held back so compaction can run. Not usable for work. |
+
+### How the window fills
+
+In long sessions, conversation history reaches about 45% of the window, and Claude's replies are the main cause, not your prompts.
+
+- **Fixed overhead comes first.** The system prompt, tool schemas, CLAUDE.md, and startup skills and MCP load before your first message.
+- **History grows every turn.** The full conversation is resent on each call, so every reply keeps costing tokens for the rest of the session.
+- **Tool results are the sneakiest bloat.** One file read, bash command, or grep can add thousands of tokens that stay in context afterward.
+- **Free space is the only part you spend.** Every layer above competes for it.
+
+### The autocompact buffer
+
+About 33k tokens are reserved and unusable, so a 200k window gives roughly 167k of working room.
+
+- **Why it exists.** Compaction needs space to run and write its summary, so that room is held back in advance.
+- **Effect.** Compaction triggers early, at about 167k used, not at the full 200k.
+- **Arithmetic.** 200k window − \~33k buffer = \~167k before autocompact fires.
+
+### How to manage each layer
+
+You can't shrink the fixed layers, so manage the growing ones and keep what you add at startup lean.
+
+| Layer | Lever |
+| --- | --- |
+| System prompt, tool schemas | Fixed. Treat as rent paid every session. |
+| CLAUDE.md | Keep it short and high-signal, since it taxes every turn. |
+| Skills + MCP | Disconnect servers you don't need. One heavy server can cost tens of thousands of tokens. |
+| Conversation history | Use /compact to summarize, /clear between unrelated tasks, and ask for concise answers. |
+| Tool results | Read targeted line ranges, limit search output, and delegate noisy exploration to subagents. |
+| Whole session | Start a fresh session for a new task, since each one begins with a clean window. |
+
+### Caveats
+
+Only four of the numbers come from the source slide; the rest are my estimates, and real sessions vary.
+
+- **From the slide:** system prompt \~6k, tool schemas \~8k, history \~45% in long sessions, autocompact buffer \~33k.
+- **My estimates:** CLAUDE.md (\~1k) and skills + MCP (\~5k) are illustrative. Heavy MCP setups can cost far more.
+- **Layout:** the slide draws free space and the buffer in a different order. Here the buffer sits at the top of the window, where it is reserved.
+
+### Exam takeaways
+
+A "200k" window is not fully usable, and Claude's side of the conversation fills it faster than yours does.
+
+1. Fixed overhead (\~20k) and the autocompact buffer (\~33k) come off the top.
+2. Growth comes from Claude's replies and tool results, not mostly from your typing.
+3. The levers are /compact, /clear, targeted tool use, subagents, and a lean CLAUDE.md and MCP setup.
+
+**One-liner:** The window is a shared token budget, so the goal is the right tokens in it, not the most.
+
+
+
+
+## Exam takeaways
+1. A window is not fully usable: fixed overhead and the buffer come off the top.
+2. Growth comes from Claude's output and tool results, not mostly from your typing.
+3. The levers are `/compact`, `/clear`, targeted tool use, subagents, and a lean CLAUDE.md and MCP setup.
+
+## **Main Techniques**
 1. **Compaction / summarization:** Condense old history into a summary and continue with that. It frees space but is lossy.
 2. **Context editing / pruning:** Drop stale items, such as old tool results or irrelevant turns, while keeping recent and important ones.
 3. **External memory:** Store durable facts outside the window (files, notes, a memory tool, a database) and retrieve them when needed. This gives persistence across sessions.
