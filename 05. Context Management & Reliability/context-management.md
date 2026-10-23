@@ -158,13 +158,6 @@ You can't shrink the fixed layers, so manage the growing ones and keep what you 
 | Tool results | Read targeted line ranges, limit search output, and delegate noisy exploration to subagents. |
 | Whole session | Start a fresh session for a new task, since each one begins with a clean window. |
 
-### Caveats
-
-Only four of the numbers come from the source slide; the rest are my estimates, and real sessions vary.
-
-- **From the slide:** system prompt \~6k, tool schemas \~8k, history \~45% in long sessions, autocompact buffer \~33k.
-- **My estimates:** CLAUDE.md (\~1k) and skills + MCP (\~5k) are illustrative. Heavy MCP setups can cost far more.
-- **Layout:** the slide draws free space and the buffer in a different order. Here the buffer sits at the top of the window, where it is reserved.
 
 ### Exam takeaways
 
@@ -173,16 +166,107 @@ A "200k" window is not fully usable, and Claude's side of the conversation fills
 1. Fixed overhead (\~20k) and the autocompact buffer (\~33k) come off the top.
 2. Growth comes from Claude's replies and tool results, not mostly from your typing.
 3. The levers are /compact, /clear, targeted tool use, subagents, and a lean CLAUDE.md and MCP setup.
+4. A window is not fully usable: fixed overhead and the buffer come off the top.
+5. Growth comes from Claude's output and tool results, not mostly from your typing.
+6. The levers are `/compact`, `/clear`, targeted tool use, subagents, and a lean CLAUDE.md and MCP setup.
 
-**One-liner:** The window is a shared token budget, so the goal is the right tokens in it, not the most.
+## Using the context levers in Claude Code
 
+### 1. `/compact`: summarize before it gets full
+Run it manually at a natural checkpoint instead of waiting for autocompact (~167k):
 
+```
+/compact Keep the decisions, the file list, and the failing test names. Drop exploration noise.
+```
 
+The text after `/compact` steers what the summary keeps. Compact when a sub-task is done, not mid-debugging, because compaction is lossy.
 
-## Exam takeaways
-1. A window is not fully usable: fixed overhead and the buffer come off the top.
-2. Growth comes from Claude's output and tool results, not mostly from your typing.
-3. The levers are `/compact`, `/clear`, targeted tool use, subagents, and a lean CLAUDE.md and MCP setup.
+### 2. `/clear`: reset between unrelated tasks
+```
+/clear
+```
+Use it when you switch tasks (for example, from a bug fix to a new feature). Old history only adds noise and cost. Anything worth keeping should already be in CLAUDE.md or committed code.
+
+### 3. Check where the tokens are going
+```
+/context
+```
+This shows how much of the window each layer uses (system prompt, tools, MCP, history), so you can see which lever to pull. I'm going from memory on the exact output, so check it in your version.
+
+### 4. Targeted tool use: stop bloat at the source
+Steer Claude in your prompt:
+
+```
+Read only lines 120-200 of src/auth.ts, not the whole file.
+```
+```
+Grep for "refreshToken" and show at most 20 matches.
+```
+```
+Run the tests but only show the failing ones.
+```
+
+Habits that help:
+- Ask for specific line ranges and capped search output.
+- Pipe noisy commands through `head`, `tail`, or `grep`.
+- Avoid "read the whole repo". One broad exploration can burn tens of thousands of tokens.
+
+### 5. Subagents: keep noisy work in a separate window
+A subagent has its own context and returns only a summary. Define one as a markdown file, for example `.claude/agents/code-searcher.md`:
+
+```markdown
+---
+name: code-searcher
+description: Searches the codebase and reports findings concisely. Use for broad exploration.
+tools: Read, Grep, Glob
+---
+Search the codebase for what the task asks. Return only file paths,
+line numbers, and a 5-line summary. Do not paste large code blocks.
+```
+
+Then ask in your prompt:
+```
+Use the code-searcher subagent to find everywhere we validate JWTs.
+```
+The main window gets a short answer instead of 40 file reads.
+
+### 6. Lean CLAUDE.md
+It loads on every session and every call, so keep only what Claude can't infer:
+
+```markdown
+# Project
+- Stack: TypeScript, Node 20, pnpm
+- Run tests: `pnpm test` (single file: `pnpm test path/to/file`)
+- Never edit `/generated`
+- Style: follow existing patterns in `src/`
+```
+
+Rules of thumb:
+- Commands, conventions, and hard constraints only.
+- No long prose, no pasted docs, no things the code already shows.
+- Link to a doc file instead of inlining it, and let Claude read it only when needed.
+
+### 7. Lean MCP setup
+- Run `/mcp` to see what's connected, and disconnect servers you aren't using this session.
+- One heavy server can cost tens of thousands of tokens at startup.
+- Prefer a few focused servers over many broad ones.
+
+### 8. Session hygiene for long work
+- One task per session, then `/clear` or start fresh.
+- To pick up later, let Claude write a short progress note (for example `NOTES.md`) and load only that next time. This is external memory in practice.
+
+### Quick decision table
+
+| Symptom | Lever |
+| --- | --- |
+| Session getting long, same task continues | `/compact` with focus instructions |
+| Switching to unrelated work | `/clear` |
+| Don't know what's eating space | `/context` |
+| Huge file or search output | Ask for ranges and caps |
+| Broad "find everything" exploration | Subagent |
+| High cost before you type anything | Trim CLAUDE.md, disconnect MCP servers |
+
+Command names and options change between Claude Code versions, so confirm details with `/help` or the Claude Code docs. If you meant the **API or Agent SDK** instead of the CLI, the equivalents are context editing, the memory tool, prompt caching, and subagents, and I can map each lever to those.
 
 ## **Main Techniques**
 1. **Compaction / summarization:** Condense old history into a summary and continue with that. It frees space but is lossy.
