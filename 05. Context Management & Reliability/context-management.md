@@ -4,7 +4,7 @@
 Words, requests, and data are ambiguous on their own. Context is what removes the ambiguity.
 *Example:* The word "bank" means different things next to "river" and next to "loan." Likewise, "fix it" is meaningless unless you know what "it" refers to.
 
-## "Context", "Context Management" and "Memory" in Claude?
+## 01. "Context", "Context Management" and "Memory" in Claude?
 
 ### What "context" means in Claude?
 Context is all the information (text, files, images, tool results, prior messages, and Claude’s own output so far) supplied to the model in a given call, up to the context-window limit. It is the only information Claude can use directly, apart from what it learned in training. It is Claude's working desk: only what is on the desk can be used.
@@ -55,11 +55,51 @@ In a long coding session, Claude reads 50 files. Good context management keeps o
 ***Context is what Claude sees now; memory is what is saved for later; context management decides what moves between them.***
 
 
-## **Core Concepts**
+## 02. **Core Concepts**
 - **Context window:** The maximum tokens Claude can "see" at once. It covers the system prompt, tool definitions, conversation history, tool results, attachments, and the model's own output.
 - **Statelessness:** The model keeps nothing between calls. The full relevant context must be resent each turn (or supplied by the app).
 - **Context rot / dilution:** As context grows, the signal-to-noise ratio drops. Cost and latency rise, and attention to important details can weaken. More tokens is not always better.
 - **Goal:** The smallest set of high-signal tokens that lets Claude do the task well.
+
+## 03. **Context Windows**
+
+The **context window** is the maximum amount of text (measured in **tokens**) that Claude can process in a single call. It is the size limit of the "desk" we discussed earlier.
+
+Context = *what is in the window*. Context window = *how big the window is*.
+
+### What counts toward the limit
+Everything in a call shares one budget:
+- System prompt
+- Tool definitions
+- Conversation history
+- Tool results and attached files or images
+- Claude's own output (the reply being generated)
+
+**Input + output together must fit inside the window.**
+
+### Tokens
+- A token is a chunk of text: roughly a word fragment, about 3-4 characters of English, or about 0.75 of a word.
+- Limits, pricing, and speed are all measured in tokens, not words.
+
+### Key properties
+- **Fixed upper limit:** The window size differs by model and version. When it is full, the app must truncate, summarize, or clear content, or the call fails or stops.
+- **Not memory:** The window resets every call. The app resends the history each time, and Claude does not retain it between calls.
+- **Bigger is not automatically better:** Longer context means higher cost and latency, and quality can drop as details get diluted (context rot).
+- **Not the same as training knowledge:** Knowledge in the model's weights does not use window space.
+
+### Window vs. context vs. memory
+| Term | Meaning |
+|---|---|
+| **Context window** | The size limit (capacity) |
+| **Context** | The actual content inside it right now |
+| **Memory** | Information stored outside, loaded in when needed |
+
+### Why it matters
+Because the window is finite, **context management** is needed: compaction, pruning, retrieval, external memory, and subagents all exist to fit the right information into a limited window.
+
+**One-liner:** *The context window is the token budget for one call; context management is how you spend it wisely.*
+
+Exact window sizes vary by model, so check Anthropic's docs for current numbers if your exam needs them.
 
 ### **Main Techniques**
 1. **Compaction / summarization:** Condense old history into a summary and continue with that. It frees space but is lossy.
