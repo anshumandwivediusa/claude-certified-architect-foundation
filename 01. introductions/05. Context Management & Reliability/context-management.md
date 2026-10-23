@@ -1,4 +1,4 @@
-# Context Management in Claude: Exam Notes
+# Context Management
 
 **Context** is all the information available to understand something correctly.
 
