@@ -1,6 +1,39 @@
 # Prompt Engineering: Conceptual Exam Notes (Claude Architect)
 
-Oct 24, 2026 · @Anshuman USA
+Prompt Engineering is the practice of designing effective instructions for Large Language Models (LLMs) to produce accurate, consistent, and useful outputs.
+
+The goal is to transform a user requirement into a well-structured prompt that guides the model toward the desired response.
+
+## Why It Matters
+
+- Improves accuracy and relevance
+- Reduces hallucinations
+- Produces consistent outputs
+- Controls response format
+- Optimizes token usage and cost
+
+## Components of a Prompt
+
+| Component | Purpose | Example |
+| --- | --- | --- |
+| Role | Who the model should act as | You are an Enterprise Architect. |
+| Task / Objective | What the model must perform | Explain Kafka architecture. |
+| Context | Background information | The audience is developers migrating to Azure. |
+| Constraints | Rules and limitations | Keep it under 300 words. |
+| Output format | Expected response structure | Respond in JSON format. |
+
+A role alone is weak. The other four components carry most of the signal (sections 2 and 5).
+
+## Core Prompting Techniques
+
+| Technique | Idea | Example |
+| --- | --- | --- |
+| Zero-shot | Give the task with no examples | Explain Medallion Architecture. |
+| Few-shot | Add examples so the model learns the pattern | Input: Refund requested. Output: Customer Service issue. |
+| Role prompting | Assign a persona | Act as a Data Architect. |
+| Chain of Thought (CoT) | Ask for reasoning step by step, best for logical and complex problem-solving | Think step by step. |
+
+See section 3 for few-shot design and section 6 for why native thinking can supersede manual CoT.
 
 These notes follow Anthropic's published prompt engineering guidance, not the official exam blueprint, so check them against the exam guide for weighting.
 
@@ -63,6 +96,14 @@ Tell Claude what format to produce, and match your prompt's own style to the out
 - For guaranteed machine-readable output, use **structured outputs or tool use with a JSON schema**. Prompting alone gives high compliance, not a guarantee.
 - Prefilling the assistant turn is a legacy technique being phased out on newer models. Prefer structured outputs or explicit instructions.
 
+Example target shape:
+
+```json
+{ "topic": "Kafka", "category": "Streaming" }
+```
+
+Show the schema in the prompt to steer plain prompting, then enforce it with structured outputs when validity must be guaranteed.
+
 ## 9. Prompt chaining and decomposition
 
 Split complex work into stages where each step has one clear job: extract, then analyze, then draft, then review.
@@ -79,6 +120,12 @@ Ground Claude in sources and give it a safe way to say it doesn't know.
 - Ground answers in provided documents: quote first, then claim, then cite.
 - Restrict Claude to the supplied context when facts matter, and add a verification pass.
 
+**RAG prompt pattern:** supply the documents, restrict the answer to them, and define the fallback.
+
+```text
+Use only the provided documents. If the answer is unavailable, respond with "Information not found."
+```
+
 ## 11. Security and robustness
 
 Treat retrieved or user-supplied content as **data, never instructions**.
@@ -93,6 +140,21 @@ Treat retrieved or user-supplied content as **data, never instructions**.
 - Say whether Claude should *act* or merely *suggest*. Independent tool calls can run in parallel.
 - Newer models follow instructions closely, so shouting ("CRITICAL! ALWAYS!") often causes over-triggering. Use calm, precise wording.
 - **Prompt caching** works on prefixes. Put static content (system prompt, tool definitions, reference docs) first and variable content last. Any change earlier in the prefix invalidates the cache after it.
+
+**Agent prompt pattern:** name the role, then give an ordered task flow that includes tool use.
+
+```text
+You are an AI agent. Tasks: 1. Analyze the request. 2. Use tools if required. 3. Generate the final response.
+```
+
+**Prompt engineering vs context engineering:** prompts shape behavior, context supplies knowledge. Modern systems need both.
+
+|  | Prompt engineering | Context engineering |
+| --- | --- | --- |
+| Focus | Instructions | Information |
+| Defines | Behavior | Knowledge |
+| Uses | Examples and templates | Documents, memory, RAG |
+| Improves | Response quality | Understanding |
 
 ## 13. Exam traps
 
@@ -126,3 +188,31 @@ Each row is a plausible-sounding wrong answer and the reason it fails.
 | Costs or latency too high | Use caching, a smaller model for simple steps, and trim thinking effort |
 | Hallucinating | Ground in sources, permit uncertainty, and add a verification pass |
 
+## Best Practices Checklist
+
+- Provide sufficient context
+- Define the output format
+- Use examples when necessary
+- Keep prompts as concise as possible
+- Test and iterate against an eval set (section 1)
+
+## Common Mistakes
+
+- Vague instructions
+- Multiple objectives in one prompt (split into a chain, section 9)
+- Missing output format
+
+## Reusable Prompt Template
+
+```text
+Role: [ROLE]
+Objective: [TASK]
+Context: [BACKGROUND]
+Constraints: [RULES]
+Output Format: [FORMAT]
+Examples: [SAMPLES]
+```
+
+## Key Takeaway
+
+Prompt engineering combines **Role + Objective + Context + Constraints + Output Format** to create reliable, accurate outputs. In modern AI systems it works alongside **Context Engineering, RAG, and Tool Calling** to deliver enterprise-grade solutions.
