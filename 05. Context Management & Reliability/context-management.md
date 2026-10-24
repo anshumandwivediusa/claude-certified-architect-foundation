@@ -444,7 +444,7 @@ If you want, I can also give you:
 - 10 likely exam questions based on these concepts
 
 
-## **Main Techniques**
+## 07. **Main Techniques**
 1. **Compaction / summarization:** Condense old history into a summary and continue with that. It frees space but is lossy.
 2. **Context editing / pruning:** Drop stale items, such as old tool results or irrelevant turns, while keeping recent and important ones.
 3. **External memory:** Store durable facts outside the window (files, notes, a memory tool, a database) and retrieve them when needed. This gives persistence across sessions.
@@ -459,4 +459,239 @@ If you want, I can also give you:
 - Memory persists information but needs good retrieval and upkeep.
 
 Context management is curating, compressing, and externalizing information so Claude always has the right context, not the most context.
+
+## 08. Context Management & Reliability — Scenario-Based Notes
+
+### 1) Session is filling up and Claude is near the context limit
+
+What to do:
+- Compact old, low-value exploration
+- Keep only:
+  - the active goal
+  - current constraints
+  - key files or decisions
+  - active failing tests or blockers
+- Drop:
+  - dead-end searches
+  - stale tool output
+  - repeated failed attempts
+  - irrelevant conversation churn
+
+Trap:
+- “Compact everything” is wrong. This loses the current task state and constraints.
+- “Keep every search result” is wrong. This creates context rot.
+
+Reason:
+- Compaction should preserve intent and continuing work, not every raw historical detail.
+
+
+
+### 2) The user asks for a new feature, but the previous session was debugging a bug
+
+What to do:
+- Use /clear or start a fresh session if the tasks are unrelated
+- Keep only durable project facts in memory or notes
+- Do not carry stale bug-fix context unless it is still relevant
+
+Trap:
+- “Keep all previous context just in case” is wrong.
+- This creates cross-task contamination and noise.
+
+Reason:
+- Unrelated tasks need isolation and a clean context boundary.
+
+
+
+### 3) Tool outputs are inflating the context window
+
+What to do:
+- Ask for narrow reads, not whole files
+- Limit grep output
+- Read exact ranges only
+- Avoid broad repo exploration
+- Use subagents for noisy exploration
+- Compact stale tool results
+
+Trap:
+- “Read more to be safe” is wrong.
+- More context often hides the real signal.
+- “Just ask the model to be smarter” is wrong; the issue is context volume, not intelligence.
+
+Reason:
+- Targeted retrieval is better than broad retrieval.
+
+
+
+### 4) We need persistent facts across sessions
+
+What to do:
+- Store them outside the live window:
+  - CLAUDE.md
+  - docs
+  - notes
+  - memory store
+  - retrieval database
+- Load only what is needed when the task starts
+
+Trap:
+- “Keep it in chat history” is wrong.
+- “It will be in the model’s memory” is wrong.
+
+Reason:
+- Memory is external. Context is temporary.
+
+
+
+### 5) A tool call times out, but the action may have succeeded anyway
+
+What to do:
+- Treat retry as a reliability issue
+- Use idempotent patterns:
+  - stable operation IDs
+  - check whether the result already exists
+  - create-if-absent semantics
+  - safe upsert behavior
+  - avoid duplicate writes
+
+Trap:
+- “Retry the same request immediately because it probably failed” is wrong.
+- This can create duplicate side effects.
+
+Reason:
+- Retries are safe only when the operation is idempotent or verified.
+
+
+
+### 6) One failing tool crashes the whole workflow
+
+What to do:
+- Isolate the failure
+- Record the error
+- Fall back or continue with an alternate path
+- Stop only that subtask, not the whole workflow
+
+Trap:
+- “If one tool fails, the whole pipeline is dead” is wrong.
+
+Reason:
+- Good system design creates failure boundaries and graceful degradation.
+
+
+
+### 7) A long task gets interrupted halfway through
+
+What to do:
+- Save progress checkpoints
+- Persist task state
+- Record completed steps and remaining work
+- Resume from durable state, not live memory alone
+
+Trap:
+- “Just restart and hope the model remembers” is wrong.
+- Stateless systems do not preserve workflow state unless it is stored.
+
+Reason:
+- Restart recovery requires durable checkpoints.
+
+
+
+### 8) The agent has done many steps, but nobody can explain what happened
+
+What to do:
+- Add observability:
+  - logs
+  - tool call traces
+  - request IDs
+  - task IDs
+  - step markers
+  - success/failure status
+  - timing
+- Trace state through each step
+
+Trap:
+- “The model said it did it, so it must be fine” is wrong.
+
+Reason:
+- Without observability, debugging is guesswork.
+
+
+
+### 9) A broad search is returning too much noise
+
+What to do:
+- Narrow search terms
+- Restrict match count
+- Read exact files or ranges only
+- Delegate to a subagent if the task is exploratory
+
+Trap:
+- “Let’s read everything and sort it later” is wrong.
+- This burns tokens and hides the signal.
+
+Reason:
+- Search and read should be targeted, not exploratory by default.
+
+
+
+### 10) We are reusing facts from a prior task in a new task
+
+What to do:
+- Reset context boundaries
+- Preserve only durable facts in memory
+- Keep only current task-related context live
+
+Trap:
+- “The model should know the difference by itself” is wrong.
+- Models do not inherently separate tasks unless the application enforces boundaries.
+
+Reason:
+- Task isolation is an engineering control, not a model feature.
+
+
+
+### 11) The agent keeps re-running the same failed command
+
+What to do:
+- Stop blind retries
+- Inspect whether the failure is transient or permanent
+- Add retry policy with backoff and cap
+- Check whether the side effect already happened
+
+Trap:
+- “Retry endlessly until it works” is wrong.
+- This creates duplicate effects and wastes time.
+
+Reason:
+- Retry should be disciplined and safe.
+
+
+
+### 12) A long-running workflow is expensive, slow, and full of stale details
+
+What to do:
+- Compact history
+- Remove stale tool results
+- Keep only the current task state
+- Rely on external memory for durable facts
+- Use a subagent for noisy exploratory work
+
+Trap:
+- “Store more in the live context because it might help” is wrong.
+- This increases cost and weakens attention.
+
+Reason:
+- The correct pattern is smaller, better-targeted context.
+
+
+
+### High-Yield Pattern Map
+
+- Window pressure → compact, prune, or clear
+- Persistence across sessions → external memory
+- Noisy tool output → narrow reads, caps, subagents
+- Retry failures → idempotency + bounded retries
+- One failing step → failure boundary
+- Long-running task → checkpoints and restart recovery
+- Unclear behavior → observability
+
 
