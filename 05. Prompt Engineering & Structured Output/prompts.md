@@ -216,3 +216,40 @@ Examples: [SAMPLES]
 ## Key Takeaway
 
 Prompt engineering combines **Role + Objective + Context + Constraints + Output Format** to create reliable, accurate outputs. In modern AI systems it works alongside **Context Engineering, RAG, and Tool Calling** to deliver enterprise-grade solutions.
+
+## Comparison
+
+| Aspect | Prompt engineering | CLAUDE.md | SKILL.md | Hooks |
+|---|---|---|---|---|
+| **What it is** | Instructions you write for a single request or conversation | A markdown file of standing project or user context | A folder with a `SKILL.md` plus optional scripts and resources, packaging a procedure | Shell commands or scripts that run on lifecycle events (before or after a tool call, on session start, on prompt submit) |
+| **Scope** | One task or conversation | Every session in that project or for that user | Any session where the skill is relevant | Every matching event |
+| **When it loads** | When you send it | Automatically at session start | On demand: Claude reads the short description, then loads the body only if the task matches | Fires on the event, with no model decision |
+| **Who decides it applies** | You | Always on | Claude, by judgment | The harness, deterministically |
+| **Guarantee** | None. Claude follows it with high probability | None. It is context, not enforcement | None. Claude may not trigger it | **Yes.** It runs every time the event occurs |
+| **Context cost** | Tokens in that request | Tokens on every turn, so keep it short | Low until triggered (progressive disclosure) | Zero, unless the hook's output is fed back |
+| **Best for** | Task specifics, format, examples, reasoning | Conventions, build and test commands, architecture notes, "how we work here" | Repeatable multi-step workflows or domain expertise | Hard rules, safety gates, automation |
+| **Typical failure** | Vague or conflicting instructions | Bloated file, so important rules get diluted | Weak description, so it never triggers | Slow or buggy script that blocks the workflow |
+
+## Scenarios
+
+| Scenario | Best fit | Why |
+|---|---|---|
+| "Summarize this contract in 5 bullets for a non-lawyer" | Prompt | One-off task with its own audience and format |
+| "Always use pnpm, run `pnpm test` before committing, we use tabs" | CLAUDE.md | Standing project convention that applies to every session |
+| "Generate our quarterly report: pull data, build the deck, apply brand guidelines" | SKILL.md | A repeatable multi-step procedure with assets, needed only sometimes |
+| "Never let the agent edit `.env` or run `rm -rf`" | Hook (pre-tool-use) | Must be enforced, not merely requested |
+| "Run the formatter and linter after every file edit" | Hook (post-tool-use) | Deterministic automation. Asking nicely in CLAUDE.md can be skipped |
+| "Explain this error in simple terms with an example" | Prompt | Ad hoc, no persistence needed |
+| "Our API follows this folder layout and naming scheme" | CLAUDE.md | Context that should always be present |
+| "Review PRs using our 12-point checklist and a scoring script" | SKILL.md | Packaged procedure that loads only for review tasks |
+| "Block commits if tests fail" | Hook | Enforcement with no exceptions |
+
+## Exam traps
+
+- **"Put a hard rule in CLAUDE.md and it is enforced."** It is not. CLAUDE.md is advisory context, and only hooks (or permissions) guarantee behavior.
+- **"Skills load at session start like CLAUDE.md."** They do not. Only the description is visible up front, and the body loads when relevant, so the description must say when to use it.
+- **"Hooks are prompts for Claude."** They are code that runs outside the model's judgment.
+- **"Put everything in CLAUDE.md."** It costs tokens every turn, so move rarely used procedures into skills.
+- **"A skill replaces prompting."** You still prompt for the task. The skill supplies reusable know-how.
+
+**Rule of thumb:** a single task goes in a prompt, always-true context in CLAUDE.md, an occasional procedure in a skill, and anything that must happen every time in a hook.
