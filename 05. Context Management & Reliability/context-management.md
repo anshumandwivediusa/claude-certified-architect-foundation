@@ -170,7 +170,7 @@ A "200k" window is not fully usable, and Claude's side of the conversation fills
 5. Growth comes from Claude's output and tool results, not mostly from your typing.
 6. The levers are `/compact`, `/clear`, targeted tool use, subagents, and a lean CLAUDE.md and MCP setup.
 
-## Using the context levers in Claude Code
+## 05. Using the context levers in Claude Code
 
 ### 1. `/compact`: summarize before it gets full
 Run it manually at a natural checkpoint instead of waiting for autocompact (~167k):
@@ -267,6 +267,182 @@ Rules of thumb:
 | High cost before you type anything | Trim CLAUDE.md, disconnect MCP servers |
 
 Command names and options change between Claude Code versions, so confirm details with `/help` or the Claude Code docs. If you meant the **API or Agent SDK** instead of the CLI, the equivalents are context editing, the memory tool, prompt caching, and subagents, and I can map each lever to those.
+
+Perfect — below is a polished section you can add directly to your notes.
+
+## 06. Production Reliability Patterns for Agentic Systems
+
+Context management is not only about fitting tokens into a window. In production, reliability means the system keeps working even when tools fail, inputs are noisy, tasks are interrupted, or an agent runs long enough to hit edge cases. Claude Architect-level reasoning includes both "good context" and "good operational behavior."
+
+### 1. Retries
+
+Retries are how a system responds to transient failure.
+
+What counts as transient:
+- Network hiccups
+- API rate limits
+- Temporary service outages
+- Timeout during a tool call
+
+Good retry patterns:
+- Retry only on transient failures, not on permanent ones
+- Use exponential backoff and jitter
+- Cap retry attempts to avoid infinite loops
+- Record the failure and whether it was retried
+
+Example:
+- A tool call to a remote API times out once. Retry after a short delay, but if the same request fails repeatedly, stop and surface a clear error.
+
+Exam framing:
+- Retries improve resilience but must be bounded and careful. Blind retry loops can amplify costs and create duplicate actions.
+
+### 2. Idempotency
+
+Idempotency means repeating the same action does not create a different result.
+
+Why it matters:
+- A tool may be retried after a timeout even though it actually succeeded
+- The same instruction may be executed more than once
+- Long-running agents may re-trigger side effects
+
+Example patterns:
+- Use a stable request ID or operation ID for writes
+- "Create if absent" semantics instead of "create always"
+- Use upsert patterns for database operations
+- Make delete/update operations safe to repeat
+
+Example:
+- A payment or file creation action should not create two copies if the request is retried after a connection failure.
+
+Exam framing:
+- Context management reduces confusion, but idempotency makes systems safe under retries and partial failures.
+
+### 3. Failure Boundaries
+
+Failure boundaries are places where one failure is isolated and does not cascade across the whole system.
+
+Why it matters:
+- One bad tool or one broken subtask should not crash the entire workflow
+- Agent systems are composed of many moving parts: LLM calls, tools, storage, APIs, file edits
+
+Good patterns:
+- Isolate tool execution from core reasoning
+- Treat a failed step as a recoverable state, not a fatal system crash
+- Fail a subtask with a clear status instead of poisoning the main task
+- Keep a "last known good state"
+
+Example:
+- A search tool fails to read a file. The agent should mark that one investigation as failed and continue with alternative retrieval paths, rather than stopping the whole job.
+
+Exam framing:
+- The system should fail locally and gracefully, not globally and catastrophically.
+
+### 4. Observability
+
+Observability is the ability to answer: what happened, why it happened, and what state the system was in?
+
+Core signals:
+- Logs
+- Structured events
+- Trace IDs and request IDs
+- Metrics
+- Status summaries
+- Tool call outcomes
+- Prompt and token usage
+
+Why it matters:
+- In agents, errors can be hidden inside long chains of reasoning and tool interactions
+- Without observability, debugging is guesswork
+
+Useful fields to record:
+- task ID
+- step number
+- tool name
+- inputs and outputs
+- success/failure
+- duration
+- relevant context summary
+- final result or error
+
+Exam framing:
+- An AI system without observability is not production-ready. You need to inspect state and trace decisions.
+
+### 5. Task Isolation
+
+Task isolation means separating work into independent units so that one task does not corrupt another.
+
+Why it matters:
+- Long agent sessions accumulate state
+- Old context can leak into unrelated tasks
+- One task's side effects may affect another
+
+Patterns:
+- One task = one session or one bounded work unit
+- Separate scratch work from durable work
+- Clear or reset state when switching goals
+- Keep write operations scoped to specific artifacts
+- Avoid shared mutable state unless explicitly designed
+
+Example:
+- A bug fix task and a feature branch task should not share the same working memory without clear boundaries.
+
+Exam framing:
+- Isolation reduces cross-contamination and keeps reasoning focused. It is often a practical complement to context compaction and /clear workflows.
+
+### 6. Restart Recovery
+
+Restart recovery is the system’s ability to continue after interruption, crash, or shutdown.
+
+Why it matters:
+- Agentic workflows can be interrupted at any step
+- LLM sessions may reset
+- Tools may fail halfway through an operation
+
+Recovery patterns:
+- Persist the task state and key artifacts
+- Save checkpoints of progress
+- Record what was completed and what remains
+- Resume from a durable checkpoint, not from memory alone
+- Keep operations atomic where possible
+
+Example:
+- A workflow writes a partial file or database mutation, then crashes. Recovery should know whether the mutation succeeded, whether it must be rolled back, and what step should run next.
+
+Exam framing:
+- Durable state plus checkpointing turns an interruptible workflow into a recoverable one.
+
+### Reliability Pattern Summary
+
+The strongest production systems combine:
+- Good context management
+- Safe retries
+- Idempotent actions
+- Isolated failure domains
+- Strong observability
+- Clear task boundaries
+- Restartable state
+
+In short:
+- Context keeps the agent aligned
+- Reliability keeps the system alive
+- Recovery keeps the work trustworthy
+
+### Exam Takeaways
+
+1. A production-grade agent is not just a model with tools; it is a system with bounded failure modes.
+2. Retries without idempotency are risky.
+3. Failure boundaries prevent one bad tool from collapsing the whole workflow.
+4. Observability is essential for debugging and trust.
+5. Task isolation prevents cross-task pollution and memory contamination.
+6. Restart recovery is what makes long-running work survivable.
+
+These are the operational principles that make context management effective in real deployments, not just in a single conversation window.
+
+If you want, I can also give you:
+- a shorter version to paste into your existing markdown
+- a one-page “high-yield” cheat sheet
+- 10 likely exam questions based on these concepts
+
 
 ## **Main Techniques**
 1. **Compaction / summarization:** Condense old history into a summary and continue with that. It frees space but is lossy.
