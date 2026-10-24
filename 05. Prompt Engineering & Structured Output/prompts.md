@@ -1,4 +1,4 @@
-# Prompt Engineering: Conceptual Exam Notes (Claude Architect)
+# Prompt Engineering
 
 Prompt Engineering is the practice of designing effective instructions for Large Language Models (LLMs) to produce accurate, consistent, and useful outputs.
 
